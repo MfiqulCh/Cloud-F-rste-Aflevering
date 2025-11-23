@@ -131,10 +131,10 @@ class HelloWorld(toga.App):
 
        role_items = list(['', 'Doctor', 'Nurse', 'Patient'])
        selected_role_item = 'Doctor'
-       events = [{'id' : 'Diagnose', 'label' : 'Diagnose', 'Role' : 'Doctor'},
-                 {'id' : 'Operate', 'label' : 'Operate', 'Role' : 'Doctor'},
-                 {'id' : 'Give Treatment', 'label' : 'Give Treatment', 'Role' : 'Nurse'},
-                 {'id' : 'Take Treatment', 'label' : 'Take Treatment', 'Role' : 'Patient'}]
+       events = [{'id' : 'Diagnose', 'label' : 'Diagnose', 'role' : 'Doctor'},
+                 {'id' : 'Operate', 'label' : 'Operate', 'role' : 'Doctor'},
+                 {'id' : 'Give Treatment', 'label' : 'Give Treatment', 'role' : 'Nurse'},
+                 {'id' : 'Take Treatment', 'label' : 'Take Treatment', 'role' : 'Patient'}]
        
        info_box = toga.Box(style=Pack(direction=ROW, padding=5))
 
@@ -167,8 +167,35 @@ class HelloWorld(toga.App):
 
        instance_box.add(info_box)
 
+       event_scroll = toga.ScrollContainer(
+           horizontal=False,
+           style=Pack(direction=COLUMN, flex=1)
+       )
+
+       event_box = toga.Box(style=Pack(direction=COLUMN))
+
+       for event in events:
+           event_button = toga.Button(
+               text=f"{event['label']} (role: {event['role']})",
+               id=event['id'],
+               on_press=self.execute_event,
+               style=Pack(padding=5),
+           )
+           event_box.add(event_button)
+       
+       event_scroll.content = event_box
+       instance_box.add(event_scroll)
+
+       #Logout Box
        logout_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
-       # TODO
+       
+       logout_button = toga.Button(
+           "Logout",
+           on_press = self.logout_pressed,
+           style=Pack(padding=10)
+       )
+
+       logout_box.add(logout_button)
 
        option_container = toga.OptionContainer(
            content = [
@@ -186,7 +213,7 @@ class HelloWorld(toga.App):
        self.main_window.show()
     
     async def option_item_changed(self, widget):
-        print('[i] You have selected another Option Item!')
+        print('[i] You Have Selected Another Option Item!')
 
     async def say_hello(self, widget):
        async with httpx.AsyncClient() as client:
@@ -200,7 +227,7 @@ class HelloWorld(toga.App):
        )
 
     async def login_pressed(self, widget):
-        print(f"[i] Login clicked with username: {self.username_input.value}")
+        print(f"[i] Login Detected With Username: {self.username_input.value}")
         async with httpx.AsyncClient() as client:
             response = await client.get("https://jsonplaceholder.typicode.com/posts/27")
         
@@ -225,6 +252,12 @@ class HelloWorld(toga.App):
     
     async def role_changed(self, widget):
         print(f'[i] You Changed The Role To {self.role_selection.value}!')
+
+    async def execute_event(self, widget):
+        print(f'[i] You want to execute event: {widget.id}!')
+    
+    async def logout_pressed(self, widget):
+        print('[i] Logout Pressed!')
 
 def greeting(name):
    if name:
