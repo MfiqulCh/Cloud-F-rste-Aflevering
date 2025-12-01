@@ -67,7 +67,7 @@ class DcrActiveRepository(object):
         '''
         Get all active instances (or simulations) for a given graph id.
         '''
-        url = f"https://repository.dcrgraphs.net/api/graphs/{graph_id}/DCRSimulator/SimulationsByGraphId" # this is the url you call (note: using f strings simplifies the insertion of the input parameters)
+        url = f"https://repository.dcrgraphs.net/api/graphs/{graph_id}/sims" # this is the url you call (note: using f strings simplifies the insertion of the input parameters)
         instances = {} # this is a dictionary to store the resulting simulations
         async with httpx.AsyncClient() as client: # remember we're using an AsyncClinet()
             response = await client.get(url, auth=self.basic_auth) # always await the response. Here we need a GET http command.
@@ -88,7 +88,7 @@ class DcrActiveRepository(object):
             return response.headers['simulationid'] # we return the simulation id
 
     async def delete_instance(self,graph_id,instance_id):
-        url = f"http://repository.dcrgraphs.net/api/graphs/{graph_id}/sims/{instance_id}"
+        url = f"https://repository.dcrgraphs.net/api/graphs/{graph_id}/sims/{instance_id}"
         async with httpx.AsyncClient() as client:
             response = await client.delete(url, auth=self.basic_auth)
             return response.status_code
@@ -189,4 +189,3 @@ async def main():
 if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
-    
