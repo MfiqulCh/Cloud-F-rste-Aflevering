@@ -7,33 +7,13 @@ import httpx
 
 from toga.style.pack import COLUMN, ROW
 from toga.style import Pack
+from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
 
-class HelloWorld(toga.App):
+class CloudApp(toga.App):
+    graph_id = 2004854
+    dcr_ar = None
 
     def startup(self):
-       
-       #Main Box
-       main_box = toga.Box(style=Pack(direction=COLUMN))
-       name_label = toga.Label(
-           text = "Your name: ",
-           style=Pack(padding=(0, 5))
-       )
-       self.name_input = toga.TextInput(style=Pack(flex=1))
-
-       name_box = toga.Box(style=Pack(direction=ROW, padding=5))
-       name_box.add(name_label)
-       name_box.add(self.name_input)
-
-       button = toga.Button(
-           text="Say Hello!",
-           on_press=self.say_hello,
-           style=Pack(padding=5)
-       )
-
-       main_box.add(name_box)
-       main_box.add(button)
-
-
 
        #Login Box
        login_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
@@ -199,7 +179,6 @@ class HelloWorld(toga.App):
 
        option_container = toga.OptionContainer(
            content = [
-               toga.OptionItem("Main Box", main_box),
                toga.OptionItem("Login", login_box),
                toga.OptionItem("All Instances", all_instances_box),
                toga.OptionItem("Instance Run", instance_box),
@@ -209,34 +188,39 @@ class HelloWorld(toga.App):
             style=Pack(direction=COLUMN))
        
        self.main_window = toga.MainWindow(title=self.formal_name)
-       self.main_window.content = option_container
+       
+       self.option_container = option_container
+       self.main_window.content = self.option_container
+       
        self.main_window.show()
+        
+    
     
     async def option_item_changed(self, widget):
         print('[i] You Have Selected Another Option Item!')
 
-    async def say_hello(self, widget):
-       async with httpx.AsyncClient() as client:
-          response = await client.get("https://jsonplaceholder.typicode.com/posts/42")
-       
-       payload = response.json()
-
-       self.main_window.info_dialog(
-           greeting(self.name_input.value),
-           payload['body']
-       )
 
     async def login_pressed(self, widget):
         print(f"[i] Login Detected With Username: {self.username_input.value}")
-        async with httpx.AsyncClient() as client:
-            response = await client.get("https://jsonplaceholder.typicode.com/posts/27")
         
-        payload = response.json()
-
-        await self.main_window.info_dialog(
-            greeting(self.username_input.value),
-            payload['body'],
-        )
+        username = self.username_input.value
+        password = self.password_input.value
+        
+        connected = await check_login_from_dcr(self.username_input.value, self.password_input.value)
+        
+        if isinstance (connected, DcrActiveRepository):
+            self.user = DcrUser(self.username_input.value, self.password_input.value)
+            self.dcr_ar = connected
+            
+            self.option_container.content['Logout'].enabled = True
+            self.option_container.content['All Instances'].enabled = True
+            self.option_container.content['Login'].enabled = False
+            self.option_container.content['Instance Run'].enabled = True
+            
+            self.option_container.value = 'All Instances'
+            await self.main_window.info_dialog("Login Success", f"Welcome {username}! You are now logged in.")
+        else:
+           await self.main_window.error_dialog("Login Failed", "Invalid username or password. Please try again.")
     
     async def delete_all_instances(self, widget):
         print("[i] Delete All Instances")
@@ -259,11 +243,6 @@ class HelloWorld(toga.App):
     async def logout_pressed(self, widget):
         print('[i] Logout Pressed!')
 
-def greeting(name):
-   if name:
-       return f"Hello, {name}"
-   else:
-       return "Hello, stranger"
 
 def main():
-    return HelloWorld()
+    return CloudApp()
