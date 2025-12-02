@@ -7,34 +7,15 @@ import httpx
 
 from toga.style.pack import COLUMN, ROW
 from toga.style import Pack
+from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
 
-class HelloWorld(toga.App):
+class CloudApp(toga.App):
+    graph_id = 2004854
+    dcr_ar = None
+    current_instance_id = None
 
     def startup(self):
        
-       #Main Box
-       main_box = toga.Box(style=Pack(direction=COLUMN))
-       name_label = toga.Label(
-           text = "Your name: ",
-           style=Pack(padding=(0, 5))
-       )
-       self.name_input = toga.TextInput(style=Pack(flex=1))
-
-       name_box = toga.Box(style=Pack(direction=ROW, padding=5))
-       name_box.add(name_label)
-       name_box.add(self.name_input)
-
-       button = toga.Button(
-           text="Say Hello!",
-           on_press=self.say_hello,
-           style=Pack(padding=5)
-       )
-
-       main_box.add(name_box)
-       main_box.add(button)
-
-
-
        #Login Box
        login_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
        username_label = toga.Label("Username:", style=Pack(padding=(5, 5)))
@@ -55,7 +36,7 @@ class HelloWorld(toga.App):
 
        login_button = toga.Button(
            "Login",
-           on_press = self.login_pressed,
+           on_press = self.login_handler,
            style = Pack(padding=10)
        )
 
@@ -66,61 +47,7 @@ class HelloWorld(toga.App):
 
 
        #All Instances Box
-       all_instances_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
-       all_instances_label = toga.Label("All Instances Will Be Listed Here", style=Pack(padding=5))
-
-       buttons_box = toga.Box(style=Pack(direction=COLUMN, padding=5))
-
-       create_button = toga.Button(
-           "Create New Instance",
-           on_press = self.create_new_instance,
-           style = Pack(padding=(0, 5, 0, 0)),
-       )
-       
-       delete_button = toga.Button(
-           "Delete All Instances",
-           on_press = self.delete_all_instances,
-           style=Pack(padding=(0, 0, 0, 5), color='red'),
-       )
-
-       buttons_box.add(create_button)
-       buttons_box.add(delete_button)
-
-       all_instances_box.add(all_instances_label)
-       all_instances_box.add(buttons_box)
-
-       all_instances_container = toga.ScrollContainer(horizontal=False, style=Pack(direction=COLUMN, flex=1))
-       instances_box = toga.Box(style=Pack(direction=COLUMN))
-
-       instances = [{'id': 1, 'name':'instance 1'},
-                    {'id': 2, 'name':'instance 2'},
-                    {'id': 3, 'name':'instance 3'}]
-       
-       for instance in instances:
-           buttons_box = toga.Box(style=Pack(direction=ROW))
-           instance_button = toga.Button(
-               instance['name'],
-               on_press = self.show_instance,
-               style = Pack(padding=5),
-               id = instance['id']
-           )
-
-           buttons_box.add(instance_button)
-
-           del_button = toga.Button(
-               'X',
-               on_press = self.delete_instance_by_id,
-               style = Pack(padding=5, color ='red'),
-               id = f'X{instance['id']}'
-           )
-
-           buttons_box.add(del_button)
-
-           instances_box.add(buttons_box)
-       
-       all_instances_container.content = instances_box
-       all_instances_box.add(all_instances_container)
-       
+       self.all_instances_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
 
 
        #Instance Box
@@ -199,57 +126,142 @@ class HelloWorld(toga.App):
 
        option_container = toga.OptionContainer(
            content = [
-               toga.OptionItem("Main Box", main_box),
                toga.OptionItem("Login", login_box),
-               toga.OptionItem("All Instances", all_instances_box),
-               toga.OptionItem("Instance Run", instance_box),
+               toga.OptionItem("All instances", self.all_instances_box),
+               toga.OptionItem("Instance run", instance_box),
                toga.OptionItem("Logout", logout_box),
                ],
             on_select = self.option_item_changed,
             style=Pack(direction=COLUMN))
        
+       self.option_container = option_container
+       
        self.main_window = toga.MainWindow(title=self.formal_name)
-       self.main_window.content = option_container
+       self.main_window.content = self.option_container
+
+       self.option_container.content["Logout"].enabled = False
+       self.option_container.content["All instances"].enabled = False
+       self.option_container.content["Instance run"].enabled = False
+
        self.main_window.show()
     
     async def option_item_changed(self, widget):
         print('[i] You Have Selected Another Option Item!')
+        if widget.current_tab.text == "All instances":
+            await self.show_instances_box()
 
-    async def say_hello(self, widget):
-       async with httpx.AsyncClient() as client:
-          response = await client.get("https://jsonplaceholder.typicode.com/posts/42")
-       
-       payload = response.json()
-
-       self.main_window.info_dialog(
-           greeting(self.name_input.value),
-           payload['body']
-       )
-
-    async def login_pressed(self, widget):
+    async def login_handler(self, widget):
         print(f"[i] Login Detected With Username: {self.username_input.value}")
-        async with httpx.AsyncClient() as client:
-            response = await client.get("https://jsonplaceholder.typicode.com/posts/27")
-        
-        payload = response.json()
 
-        await self.main_window.info_dialog(
-            greeting(self.username_input.value),
-            payload['body'],
+        connected = await check_login_from_dcr(
+            self.username_input.value, 
+            self.password_input.value
         )
+
+        if connected:
+            self.username = DcrUser(self.username_input.value, self.password_input.value)
+            self.dcr_ar = DcrActiveRepository(self.username)
+
+            self.option_container.content["All instances"].enabled = True
+            self.option_container.content["Instance run"].enabled = True
+            self.option_container.content["Logout"].enabled = True
+
+            self.option_container.current_tab = "All instances"
+            self.option_container.content["Login"].enabled = False
+        else:
+            print("[x] Login failed try again!")
+    
+    async def show_instances_box(self):
+        self.all_instances_box.clear()
+
+        all_instances_label = toga.Label("All Instances Will Be Listed Here", style=Pack(padding=5))
+
+        buttons_box = toga.Box(style=Pack(direction=COLUMN, padding=5))
+
+        create_button = toga.Button(
+            "Create New Instance",
+            on_press=self.create_new_instance,
+            style=Pack(padding=(0, 5, 0, 0)),
+        )
+
+        delete_button = toga.Button(
+            "Delete All Instances",
+            on_press=self.delete_all_instances,
+            style=Pack(padding=(0, 0, 0, 5), color="red"),
+        )
+
+        buttons_box.add(create_button)
+        buttons_box.add(delete_button)
+
+        self.all_instances_box.add(all_instances_label)
+        self.all_instances_box.add(buttons_box)
+
+        all_instances_container = toga.ScrollContainer(
+            horizontal=False,
+            style=Pack(direction=COLUMN, flex=1),
+        )
+        instances_box = toga.Box(style=Pack(direction=COLUMN))
+
+        self.instances = {}
+        dcr_ar_instances = await self.dcr_ar.get_instances(self.graph_id)
+        if len(dcr_ar_instances) > 0:
+            self.instances = dcr_ar_instances
+        
+        for inst_id, inst_name in self.instances.items():
+            row_box = toga.Box(style=Pack(direction=ROW))
+
+            instance_button = toga.Button(
+                inst_name,
+                on_press=self.show_instance,
+                style=Pack(padding=5),
+                id=inst_id,
+            )
+            row_box.add(instance_button)
+
+            del_button = toga.Button(
+                "X",
+                on_press=self.delete_instance_by_id,
+                style=Pack(padding=5, color="red"),
+                id=f"X{inst_id}",
+            )
+            row_box.add(del_button)
+
+            instances_box.add(row_box)
+        
+        all_instances_container.content = instances_box
+        self.all_instances_box.add(all_instances_container)
+
+        self.all_instances_box.refresh()
     
     async def delete_all_instances(self, widget):
         print("[i] Delete All Instances")
+
+        for instance_id in list(self.instances.keys()):
+            await self.dcr_ar.delete_instance(self.graph_id, instance_id)
+        await self.show_instances_box()
     
     async def create_new_instance(self, widget):
         print("[i] Create New Instance")
+
+        new_id = await self.dcr_ar.create_new_instance(self.graph_id)
+        self.current_instance_id = new_id
+
+        await self.show_instances_box()
+        self.option_container.current_tab = "Instance run"
     
     async def show_instance(self, widget):
-        print(f"[i] You Want To Show: {widget.id}")
+        self.current_instance_id = widget.id
+        print(f"[i] You Want To Show: {self.current_instance_id}")
+
+        self.option_container.current_tab = "Instance run"  
     
     async def delete_instance_by_id(self, widget):
-        print(f"[i] You Want To Delete: {widget.id[1:]}")
-    
+        instance_id = widget.id[1:]
+        print(f"[i] You Want To Delete: {instance_id}")
+
+        await self.dcr_ar.delete_instance(self.graph_id, instance_id)
+        await self.show_instances_box()
+
     async def role_changed(self, widget):
         print(f'[i] You Changed The Role To {self.role_selection.value}!')
 
@@ -259,11 +271,5 @@ class HelloWorld(toga.App):
     async def logout_pressed(self, widget):
         print('[i] Logout Pressed!')
 
-def greeting(name):
-   if name:
-       return f"Hello, {name}"
-   else:
-       return "Hello, stranger"
-
 def main():
-    return HelloWorld()
+    return CloudApp()
