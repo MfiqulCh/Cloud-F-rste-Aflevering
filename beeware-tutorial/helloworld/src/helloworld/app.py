@@ -192,7 +192,7 @@ class CloudApp(toga.App):
             )
         )
         self.instance_box.refresh()
-        
+
         await self.show_instances_box()
     
     async def create_new_instance(self, widget):
@@ -356,6 +356,33 @@ class CloudApp(toga.App):
 
     async def logout_pressed(self, widget):
         print('[i] Logout Pressed!')
+
+        self.option_container.content["Login"].enabled = True
+        self.option_container.current_tab = "Login"
+
+        self.option_container.content["All instances"].enabled = False
+        self.option_container.content["Instance run"].enabled = False
+        self.option_container.content["Logout"].enabled = False
+
+        self.user = None
+        self.dcr_ar = None
+        self.current_instance_id = None
+        self.instances = {}
+
+        self.username_input.value = ""
+        self.password_input.value = ""
+
+        self.instance_box.clear()
+        self.instance_box.add(
+            toga.Label(
+                "Select an instance from All instances or Create new!",
+                style=Pack(padding=5),
+            )
+        )
+        self.instance_box.refresh()
+
+        self.all_instances_box.clear()
+        self.all_instances_box.refresh()
 
 def main():
     return CloudApp()
