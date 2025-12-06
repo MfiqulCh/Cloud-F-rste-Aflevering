@@ -8,6 +8,7 @@ import httpx
 from toga.style.pack import COLUMN, ROW
 from toga.style import Pack
 from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
+from services import database_connection as dbc
 
 class CloudApp(toga.App):
     graph_id = 2004854
@@ -104,6 +105,8 @@ class CloudApp(toga.App):
 
         if connected:
             self.username = DcrUser(self.username_input.value, self.password_input.value)
+            self.username.role = dbc.get_dcr_role(email=self.username.email)
+            print(f'[i] Role: {self.username.role}')
             self.dcr_ar = DcrActiveRepository(self.username)
 
             self.option_container.content["All instances"].enabled = True
@@ -114,7 +117,8 @@ class CloudApp(toga.App):
             self.option_container.content["Login"].enabled = False
         else:
             print("[x] Login failed try again!")
-    
+            
+
     async def show_instances_box(self):
         self.all_instances_box.clear()
 
