@@ -6,15 +6,15 @@ sql_query_template = {}
 
 sql_query_template['get_dcr_role'] = f"SELECT Role FROM DCRUsers WHERE email = '{{email}}'"
 #TODO: fill in these templates with the right SQL query
-sql_query_template['get_dcr_role'] = f""
-sql_query_template['update_dcr_role'] = f""
-sql_query_template['get_all_instances'] = f""
-sql_query_template['get_instances_for_user'] = f""
-sql_query_template['insert_instance'] = f""
-sql_query_template['insert_instance_for_user'] = f""
-sql_query_template['update_instance'] = f""
-sql_query_template['delete_instance_from_user_instance'] = f""
-sql_query_template['delete_instance'] = f""
+sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
+sql_query_template['update_dcr_role'] = "UPDATE DCRUsers SET Role = %(role)s WHERE Email = %(email)s"
+sql_query_template['get_all_instances'] = "SELECT Instances.InstanceID, Instances.IsInValidState, UserSimulations.Email FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID"
+sql_query_template['get_instances_for_user'] = "SELECT Instances.InstanceID, Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s"
+sql_query_template['insert_instance'] = "INSERT INTO Instances (InstanceID, IsInValidState) VALUES (%(id)s, %(valid)s)"
+sql_query_template['insert_instance_for_user'] = "INSERT INTO UserSimulations (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"
+sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
+sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserSimulations WHERE InstanceID = %(id)s"
+sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 
 def db_connect():
     from pathlib import Path
