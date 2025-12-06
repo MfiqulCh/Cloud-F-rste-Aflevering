@@ -4,8 +4,7 @@ db_password = 'Thisthepassword3'
 
 sql_query_template = {}
 
-sql_query_template['get_dcr_role'] = f"SELECT Role FROM DCRUsers WHERE
-Email = %(email)s"
+sql_query_template['get_dcr_role'] = f"SELECT Role FROM DCRUsers WHERE email = '{{email}}'"
 #TODO: fill in these templates with the right SQL query
 sql_query_template['get_dcr_role'] = f""
 sql_query_template['update_dcr_role'] = f""
