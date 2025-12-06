@@ -102,15 +102,11 @@ class CloudApp(toga.App):
             self.username_input.value, 
             self.password_input.value
         )
-        # Assignment 2
-        connected = await check_login_from_dcr(self.user_input.value, self.password_input.value)
-        if connected:
-            self.user = DcrUser(self.user_input.value,self.password_input.value)
-            self.user.role = dbc.get_dcr_role(email=self.user.email)
-            print(f'[i] Role: {self.user.role}')
 
         if connected:
             self.username = DcrUser(self.username_input.value, self.password_input.value)
+            self.username.role = dbc.get_dcr_role(email=self.username.email)
+            print(f'[i] Role: {self.username.role}')
             self.dcr_ar = DcrActiveRepository(self.username)
 
             self.option_container.content["All instances"].enabled = True
