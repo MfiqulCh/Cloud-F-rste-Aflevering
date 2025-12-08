@@ -102,15 +102,11 @@ class CloudApp(toga.App):
             self.username_input.value, 
             self.password_input.value
         )
-        # Assignment 2
-        connected = await check_login_from_dcr(self.user_input.value, self.password_input.value)
-        if connected:
-            self.user = DcrUser(self.user_input.value,self.password_input.value)
-            self.user.role = dbc.get_dcr_role(email=self.user.email)
-            print(f'[i] Role: {self.user.role}')
 
         if connected:
             self.username = DcrUser(self.username_input.value, self.password_input.value)
+            self.username.role = dbc.get_dcr_role(email=self.username.email)
+            print(f'[i] Role: {self.username.role}')
             self.dcr_ar = DcrActiveRepository(self.username)
 
             self.option_container.content["All instances"].enabled = True
@@ -156,9 +152,16 @@ class CloudApp(toga.App):
 
         self.instances = {}
         dcr_ar_instances = await self.dcr_ar.get_instances(self.graph_id)
-        if len(dcr_ar_instances) > 0:
-            self.instances = dcr_ar_instances
+        # Only add instances that exist in the database
+
+        db_instances = dbc.get_all_instances()
+        db_instance_ids = {str(row[0]) for row in db_instances}
+        my_instances = [str(row[0]) for row in dbc.get_instances_for_user(self.username.email)]
         
+        for inst_id, inst_name in dcr_ar_instances.items():
+            if inst_id in db_instance_ids:
+                self.instances[inst_id] = inst_name
+
         for inst_id, inst_name in self.instances.items():
             row_box = toga.Box(style=Pack(direction=ROW))
 
@@ -167,6 +170,7 @@ class CloudApp(toga.App):
                 on_press=self.show_instance,
                 style=Pack(padding=5),
                 id=inst_id,
+                enabled=inst_id in my_instances  # Only enable if in my_instances
             )
             row_box.add(instance_button)
 
@@ -187,10 +191,12 @@ class CloudApp(toga.App):
     
     async def delete_all_instances(self, widget):
         print("[i] Delete All Instances")
-
-        for instance_id in list(self.instances.keys()):
-            await self.dcr_ar.delete_instance(self.graph_id, instance_id)
-        
+        # Only delete instances for the logged in user that are valid
+        my_instances = dbc.get_instances_for_user(self.username.email)
+        for instance_id, is_valid in my_instances:
+            if is_valid: # Only delete valid instances
+                await self.dcr_ar.delete_instance(self.graph_id, instance_id)
+                dbc.delete_instance(instance_id)
         self.current_instance_id = None
         self.instance_box.clear()
         self.instance_box.add(toga.Label("Select an instance from All instances or Create new!",
@@ -206,6 +212,11 @@ class CloudApp(toga.App):
 
         new_id = await self.dcr_ar.create_new_instance(self.graph_id)
         self.current_instance_id = new_id
+
+        # Check if any events are pending
+        events = await self.dcr_ar.get_events(self.graph_id, new_id, EventsFilter.ALL)
+        valid = all(not event.pending for event in events)
+        dbc.insert_instance(new_id, valid, self.username.email)
 
         await self.show_instances_box()
         await self.show_instance_box()
@@ -223,6 +234,7 @@ class CloudApp(toga.App):
         print(f"[i] You Want To Delete: {instance_id}")
 
         await self.dcr_ar.delete_instance(self.graph_id, instance_id)
+        dbc.delete_instance(instance_id)
 
         if self.current_instance_id == instance_id:
             self.current_instance_id = None
@@ -349,6 +361,7 @@ class CloudApp(toga.App):
         print(f'[i] You Changed The Role To {self.role_selection.value}!')
 
         self.username.role = self.role_selection.value
+        dbc.update_dcr_role(self.username.email, self.username.role)
         await self.show_instance_box()
 
     async def execute_event(self, widget):
@@ -358,6 +371,11 @@ class CloudApp(toga.App):
             self.current_instance_id,
             widget.id,
         )
+        # After executing, check if any events are pending
+        events = await self.dcr_ar.get_events(self.graph_id, self.current_instance_id, EventsFilter.ALL)
+        valid = all(not event.pending for event in events)
+        dbc.update_instance(self.current_instance_id, valid)
+
         await self.show_instance_box()
 
     async def logout_pressed(self, widget):
