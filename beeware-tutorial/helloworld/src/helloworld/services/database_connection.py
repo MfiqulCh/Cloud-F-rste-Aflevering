@@ -4,29 +4,46 @@ db_password = 'Thisthepassword3'
 
 sql_query_template = {}
 
-sql_query_template['get_dcr_role'] = f"SELECT Role FROM DCRUsers WHERE email = '{{email}}'"
 #TODO: fill in these templates with the right SQL query
-sql_query_template['get_dcr_role'] = f""
-sql_query_template['update_dcr_role'] = f""
-sql_query_template['get_all_instances'] = f""
-sql_query_template['get_instances_for_user'] = f""
-sql_query_template['insert_instance'] = f""
-sql_query_template['insert_instance_for_user'] = f""
-sql_query_template['update_instance'] = f""
-sql_query_template['delete_instance_from_user_instance'] = f""
-sql_query_template['delete_instance'] = f""
+sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
+sql_query_template['update_dcr_role'] = "UPDATE DCRUsers SET Role = %(role)s WHERE Email = %(email)s"
+
+sql_query_template['get_all_instances'] = (
+    "SELECT Instances.InstanceID, Instances.IsInValidState, UserInstances.Email "
+    "FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID"
+)
+
+sql_query_template['get_instances_for_user'] = (
+    "SELECT Instances.InstanceID, Instances.IsInValidState "
+    "FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID "
+    "WHERE UserInstances.Email = %(email)s"
+)
+
+sql_query_template['insert_instance'] = "INSERT INTO Instances (InstanceID, IsInValidState) VALUES (%(id)s, %(valid)s)"
+sql_query_template['insert_instance_for_user'] = (
+    "INSERT INTO UserInstances (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"
+)
+
+sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
+sql_query_template['delete_instance_from_user_instance'] = (
+    "DELETE FROM UserInstances WHERE InstanceID = %(id)s"
+)
+
+sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 
 def db_connect():
     from pathlib import Path
     resources_folder = Path(__file__).parent.resolve()
     cert_filepath = str(resources_folder.joinpath("DigiCertGlobalRootCA.crt.pem"))
-    cnx = mysql.connector.connect(user="your db user from azure",
-                                  password=db_password,
-                                  host="group3.mysql.database.azure.com",
-                                  port=3306,
-                                  database="group3",
-                                  ssl_ca=cert_filepath,
-                                  ssl_disabled=False)
+    cnx = connect(
+        user="Group3",
+        password=db_password,
+        host="group3.mysql.database.azure.com",
+        port=3306,
+        database="group3",
+        ssl_ca=cert_filepath,
+        ssl_disabled=False
+    )
     print(f'[i] cnx is connected: {cnx.is_connected()}')
     return cnx
 
@@ -38,7 +55,11 @@ def get_dcr_role(email):
         query_result = cursor.fetchone()[0]
         cursor.close()
         cnx.close()
-        return query_result
+
+        if query_result is None:
+            return None
+        return query_result[0]
+    
     except Exception as ex:
         print(f'[x] error get_dcr_role! {ex}')
         return None
