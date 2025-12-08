@@ -1,0 +1,833 @@
+Date/Time:       2025-12-08 14:15:13 
+Command line:    /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/briefcase run
+
+OS Release:      Darwin 24.5.0
+OS Version:      Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:43 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T8132
+Architecture:    arm64
+Platform:        macOS-15.5-arm64-arm-64bit-Mach-O
+
+Python exe:      /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/python3.14
+Python version:  3.14.0 (main, Oct  7 2025, 09:34:52) [Clang 17.0.0 (clang-1700.0.13.3)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.3.26
+Target platform: macOS
+Target format:   app
+
+Environment Variables:
+	BUNDLED_DEBUGPY_PATH=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/libs/debugpy
+	COLORTERM=truecolor
+	COMMAND_MODE=unix2003
+	GIT_ASKPASS=********************
+	HOME=/Users/emretaspinar
+	HOMEBREW_CELLAR=/opt/homebrew/Cellar
+	HOMEBREW_PREFIX=/opt/homebrew
+	HOMEBREW_REPOSITORY=/opt/homebrew
+	INFOPATH=/opt/homebrew/share/info:/opt/homebrew/share/info:/opt/homebrew/share/info:
+	LANG=en_US.UTF-8
+	LOGNAME=emretaspinar
+	MallocNanoZone=0
+	OLDPWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial
+	ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+	PATH=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/scripts/noConfigScripts
+	PS1=(venv) %n@%m %1~ %# 
+	PWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial
+	PYDEVD_DISABLE_FILE_VALIDATION=1
+	PYTHONSTARTUP=/Users/emretaspinar/Library/Application Support/Code/User/workspaceStorage/6d40ba68af7debe1fb2bda5af4c81b40/ms-python.python/pythonrc.py
+	PYTHON_BASIC_REPL=1
+	SHELL=/bin/zsh
+	SHLVL=1
+	SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.6CoabZIEsN/Listeners
+	TERM=xterm-256color
+	TERM_PROGRAM=vscode
+	TERM_PROGRAM_VERSION=1.106.3
+	TMPDIR=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/
+	USER=emretaspinar
+	USER_ZDOTDIR=/Users/emretaspinar
+	VIRTUAL_ENV=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv
+	VIRTUAL_ENV_PROMPT=venv
+	VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/.noConfigDebugAdapterEndpoints/endpoint-455ea1aef676318b.txt
+	VSCODE_GIT_ASKPASS_EXTRA_ARGS=********************
+	VSCODE_GIT_ASKPASS_MAIN=********************
+	VSCODE_GIT_ASKPASS_NODE=********************
+	VSCODE_GIT_IPC_HANDLE=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/vscode-git-843bc93f5e.sock
+	VSCODE_INJECTION=1
+	VSCODE_PROFILE_INITIALIZED=1
+	VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+	XPC_FLAGS=0x0
+	XPC_SERVICE_NAME=0
+	ZDOTDIR=/Users/emretaspinar
+	_=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/briefcase
+	__CFBundleIdentifier=com.microsoft.VSCode
+	__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x9
+
+pyproject.toml:
+# This project was generated with 0.3.25 using template: https://github.com/beeware/briefcase-template @ v0.3.25
+[tool.briefcase]
+project_name = "Hello World"
+bundle = "com.example"
+version = "0.0.1"
+url = "https://example.com/helloworld"
+license.file = "LICENSE"
+author = "Jane Developer"
+author_email = "snc178@alumni.ku.dk"
+
+[tool.briefcase.app.helloworld]
+formal_name = "Hello World"
+description = "My first application"
+long_description = """More details about the app should go here.
+"""
+sources = [
+    "src/helloworld",
+    "src/helloworld/services",
+]
+test_sources = [
+    "tests",
+]
+
+requires = [
+    "faker",
+    "httpx",
+    "mysql-connector-python",
+]
+test_requires = [
+    "pytest",
+]
+
+[tool.briefcase.app.helloworld.macOS]
+universal_build = true
+requires = [
+    "toga-cocoa~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.linux]
+requires = [
+    "toga-gtk~=0.5.0",
+    # PyGObject 3.52.1 enforces a requirement on libgirepository-2.0-dev. This library
+    # isn't available on Debian 12/Ubuntu 22.04. If you don't need to support those (or
+    # older) releases, you can remove this version pin. See beeware/toga#3143.
+    "pygobject < 3.52.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.debian]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "libcairo2-dev",
+    # One of the following two packages are needed to compile PyGObject wheel. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository1.0-dev",
+    # "libgirepository-2.0-dev",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK and its GI bindings
+    "gir1.2-gtk-3.0",
+    # One of the following two packages are needed to use PyGObject at runtime. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository-1.0-1",
+    # "libgirepository-2.0-0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # Note: Debian 11 requires gir1.2-webkit2-4.0 instead
+    # "gir1.2-webkit2-4.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.rhel]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.helloworld.linux.system.suse]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to support Python bindings to GTK
+    "gobject-introspection", "typelib(Gtk) = 3.0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "libwebkit2gtk3", "typelib(WebKit2)",
+]
+
+[tool.briefcase.app.helloworld.linux.system.arch]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection",
+    # Runtime dependencies that need to exist so that the
+    # Arch package passes final validation.
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to provide PyGObject bindings
+    "gobject-introspection-runtime",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.appimage]
+manylinux = "manylinux_2_28"
+
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+    # Needed to provide GTK
+    "gtk3-devel",
+    # Dependencies that GTK looks for at runtime, that need to be
+    # in the build environment to be picked up by linuxdeploy
+    "libcanberra-gtk3",
+    "PackageKit-gtk3-module",
+    "gvfs-client",
+]
+
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.flatpak]
+flatpak_runtime = "org.gnome.Platform"
+flatpak_runtime_version = "48"
+flatpak_sdk = "org.gnome.Sdk"
+
+[tool.briefcase.app.helloworld.windows]
+requires = [
+    "toga-winforms~=0.5.0",
+]
+
+# Mobile deployments
+[tool.briefcase.app.helloworld.iOS]
+requires = [
+    "toga-iOS~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.android]
+requires = [
+    "toga-android~=0.5.0",
+]
+
+base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
+
+build_gradle_dependencies = [
+    "com.google.android.material:material:1.12.0",
+    # Needed for DetailedList
+    # "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+    # Needed for MapView
+    # "org.osmdroid:osmdroid-android:6.1.20",
+]
+
+# Web deployments
+[tool.briefcase.app.helloworld.web]
+requires = [
+    "toga-web~=0.5.0",
+]
+style_framework = "Shoelace v2.3"
+
+Briefcase Log:
+[14:14:46]                                                                                                                                                             create.py:947
+           [helloworld] Generating application template...                                                                                                             create.py:947
+           Using app template: https://github.com/beeware/briefcase-macOS-app-template.git, branch v0.3.26                                                              base.py:1320
+[14:14:49] Using existing template (sha c652e1c94e8c14a12bc8a4d6a8cb8f0329ca815b, updated Thu Oct  9 07:53:28 2025)                                                     base.py:1221
+[14:14:50]                                                                                                                                                         subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     xattr -p 'com.apple.fileprovider.fpfs#P'                                                                                                        subprocess.py:839
+           '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app'                                                  
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial                                                                      subprocess.py:839
+           >>> Command Output:                                                                                                                                     subprocess.py:839
+           >>>     xattr: /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app: No such xattr:    subprocess.py:839
+           com.apple.fileprovider.fpfs#P                                                                                                                                            
+           >>> Return code: 1                                                                                                                                      subprocess.py:839
+                                                                                                                                                                   subprocess.py:839
+                                                                                                                                                                       create.py:969
+           [helloworld] Installing support package...                                                                                                                  create.py:969
+           Using support package https://briefcase-support.s3.amazonaws.com/python/3.14/macOS/Python-3.14-macOS-support.b8.tar.gz                                      create.py:372
+[14:14:54] Downloading Python-3.14-macOS-support.b8.tar.gz...                                                                                                            file.py:227
+[14:15:13]                                                                                                                                                            __main__.py:42
+           Unable to download support package; is your computer offline?                                                                                              __main__.py:43
+                                                                                                                                                                      __main__.py:43
+           The reported cause of the problem was The read operation timed out                                                                                         __main__.py:43
+           Saving log... started                                                                                                                                      console.py:443
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_transports/default.py:101 in map_httpcore_exceptions         │
+│                                                                                                                                                                                  │
+│    98 │   if len(HTTPCORE_EXC_MAP) == 0:                                                       ╭───────────────── locals ─────────────────╮                                      │
+│    99 │   │   HTTPCORE_EXC_MAP = _load_httpcore_exceptions()                                   │ message = 'The read operation timed out' │                                      │
+│   100 │   try:                                                                                 ╰──────────────────────────────────────────╯                                      │
+│ ❱ 101 │   │   yield                                                                                                                                                              │
+│   102 │   except Exception as exc:                                                                                                                                               │
+│   103 │   │   mapped_exc = None                                                                                                                                                  │
+│   104                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_transports/default.py:127 in __iter__                        │
+│                                                                                                                                                                                  │
+│   124 │                                                                                                                                                                          │
+│   125 │   def __iter__(self) -> typing.Iterator[bytes]:                                                                                                                          │
+│   126 │   │   with map_httpcore_exceptions():                                                                                                                                    │
+│ ❱ 127 │   │   │   for part in self._httpcore_stream:                                                                                                                             │
+│   128 │   │   │   │   yield part                                                                                                                                                 │
+│   129 │                                                                                                                                                                          │
+│   130 │   def close(self) -> None:                                                                                                                                               │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ part = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe0\… │ │
+│ │ self = <httpx._transports.default.ResponseStream object at 0x10d111550>                                                                                                      │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py:407 in __iter__                   │
+│                                                                                                                                                                                  │
+│   404 │   │   │   │   yield part                                                                                                                                                 │
+│   405 │   │   except BaseException as exc:                                                                                                                                       │
+│   406 │   │   │   self.close()                                                                                                                                                   │
+│ ❱ 407 │   │   │   raise exc from None                                                                                                                                            │
+│   408 │                                                                                                                                                                          │
+│   409 │   def close(self) -> None:                                                                                                                                               │
+│   410 │   │   if not self._closed:                                                                                                                                               │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ part = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe0\… │ │
+│ │ self = <httpcore._sync.connection_pool.PoolByteStream object at 0x10d1116a0>                                                                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/connection_pool.py:403 in __iter__                   │
+│                                                                                                                                                                                  │
+│   400 │                                                                                                                                                                          │
+│   401 │   def __iter__(self) -> typing.Iterator[bytes]:                                                                                                                          │
+│   402 │   │   try:                                                                                                                                                               │
+│ ❱ 403 │   │   │   for part in self._stream:                                                                                                                                      │
+│   404 │   │   │   │   yield part                                                                                                                                                 │
+│   405 │   │   except BaseException as exc:                                                                                                                                       │
+│   406 │   │   │   self.close()                                                                                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ part = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe0\… │ │
+│ │ self = <httpcore._sync.connection_pool.PoolByteStream object at 0x10d1116a0>                                                                                                 │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py:342 in __iter__                            │
+│                                                                                                                                                                                  │
+│   339 │   │   │   # before raising that exception.                                                                                                                               │
+│   340 │   │   │   with ShieldCancellation():                                                                                                                                     │
+│   341 │   │   │   │   self.close()                                                                                                                                               │
+│ ❱ 342 │   │   │   raise exc                                                                                                                                                      │
+│   343 │                                                                                                                                                                          │
+│   344 │   def close(self) -> None:                                                                                                                                               │
+│   345 │   │   if not self._closed:                                                                                                                                               │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │  chunk = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe… │ │
+│ │ kwargs = {'request': <Request [b'GET']>}                                                                                                                                     │ │
+│ │   self = <httpcore._sync.http11.HTTP11ConnectionByteStream object at 0x10d111400>                                                                                            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py:334 in __iter__                            │
+│                                                                                                                                                                                  │
+│   331 │   │   kwargs = {"request": self._request}                                                                                                                                │
+│   332 │   │   try:                                                                                                                                                               │
+│   333 │   │   │   with Trace("receive_response_body", logger, self._request, kwargs):                                                                                            │
+│ ❱ 334 │   │   │   │   for chunk in self._connection._receive_response_body(**kwargs):                                                                                            │
+│   335 │   │   │   │   │   yield chunk                                                                                                                                            │
+│   336 │   │   except BaseException as exc:                                                                                                                                       │
+│   337 │   │   │   # If we get an exception while streaming the response,                                                                                                         │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │  chunk = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe… │ │
+│ │ kwargs = {'request': <Request [b'GET']>}                                                                                                                                     │ │
+│ │   self = <httpcore._sync.http11.HTTP11ConnectionByteStream object at 0x10d111400>                                                                                            │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py:203 in _receive_response_body              │
+│                                                                                                                                                                                  │
+│   200 │   │   timeout = timeouts.get("read", None)                                                                                                                               │
+│   201 │   │                                                                                                                                                                      │
+│   202 │   │   while True:                                                                                                                                                        │
+│ ❱ 203 │   │   │   event = self._receive_event(timeout=timeout)                                                                                                                   │
+│   204 │   │   │   if isinstance(event, h11.Data):                                                                                                                                │
+│   205 │   │   │   │   yield bytes(event.data)                                                                                                                                    │
+│   206 │   │   │   elif isinstance(event, (h11.EndOfMessage, h11.PAUSED)):                                                                                                        │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │    event = Data(                                                                                                                                                             │ │
+│ │            │                                                                                                                                                                 │ │
+│ │            data=bytearray(b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1… │ │
+│ │            \xab\xa3\xf6cX\xf4\x1a\xcc\xa1(\xf1\xeb\x81\xc9o\x1f\x17\x0e.\x8f\xd3*ki\xfb\x9d\x9aP$\xe5|$j\x83\xf7\x8b\x9eM\x9d0\xdc^QK\x81k\x9f\x15\xa6\xa0\x01\xf6\xd9\x0f\… │ │
+│ │            +g%OS\xa7\xd3\xbeon\x1f\x89I=\xc1o\x01\x82\t\x04\xb1\xcb\xf5\xb0S\xbd\t\xcf\x17G\x86\x06\x16\xb5\n\xa2AGw\xb5{07U\tv\xa6c\x17\xda\xcb\x0f\xf3cW\xe2\xdc\xa7\x82\… │ │
+│ │            \x06\x80\x0b\xf9g\xban\x93UR\t\x96j\xa2E\xa8>\x84\xad9\xfbP\x84\xee\x89E\xee\xfd\xf0\xf4\x8b\xcc\xe9sI\xd8\xe9\xd3\xf3]\x15\x1dY\x9c\x80\x9b}\x03\xfd\xc8\xec\xd… │ │
+│ │            \x06\x8f\xacG6l\xe8\xc5\xfc\x13Em\xa2!\xb2\x81\x01\xf2\x18\xe9\xb76\x17\xb6&\xf4[\xf3JJ\xa7\x94\xe3\x97\xaa\xbd\xf8\x1a2\xfe\r{\x9d9\xf9U~\xd1\xe2\x97-\xfeR<\xd… │ │
+│ │            │   chunk_start=False,                                                                                                                                            │ │
+│ │            │   chunk_end=False                                                                                                                                               │ │
+│ │            )                                                                                                                                                                 │ │
+│ │  request = <Request [b'GET']>                                                                                                                                                │ │
+│ │     self = <HTTP11Connection ['https://briefcase-support.s3.amazonaws.com:443', CLOSED, Request Count: 1]>                                                                   │ │
+│ │  timeout = 5.0                                                                                                                                                               │ │
+│ │ timeouts = {'connect': 5.0, 'read': 5.0, 'write': 5.0, 'pool': 5.0}                                                                                                          │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_sync/http11.py:217 in _receive_event                      │
+│                                                                                                                                                                                  │
+│   214 │   │   │   │   event = self._h11_state.next_event()                                                                                                                       │
+│   215 │   │   │                                                                                                                                                                  │
+│   216 │   │   │   if event is h11.NEED_DATA:                                                                                                                                     │
+│ ❱ 217 │   │   │   │   data = self._network_stream.read(                                                                                                                          │
+│   218 │   │   │   │   │   self.READ_NUM_BYTES, timeout=timeout                                                                                                                   │
+│   219 │   │   │   │   )                                                                                                                                                          │
+│   220                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────── locals ──────────────────────────────────────────────────╮                                                                    │
+│ │    self = <HTTP11Connection ['https://briefcase-support.s3.amazonaws.com:443', CLOSED, Request Count: 1]> │                                                                    │
+│ │ timeout = 5.0                                                                                             │                                                                    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                    │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_backends/sync.py:126 in read                              │
+│                                                                                                                                                                                  │
+│   123 │                                                                                                                                                                          │
+│   124 │   def read(self, max_bytes: int, timeout: float | None = None) -> bytes:                                                                                                 │
+│   125 │   │   exc_map: ExceptionMapping = {socket.timeout: ReadTimeout, OSError: ReadError}                                                                                      │
+│ ❱ 126 │   │   with map_exceptions(exc_map):                                                                                                                                      │
+│   127 │   │   │   self._sock.settimeout(timeout)                                                                                                                                 │
+│   128 │   │   │   return self._sock.recv(max_bytes)                                                                                                                              │
+│   129                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────╮                                                        │
+│ │   exc_map = {<class 'TimeoutError'>: <class 'httpcore.ReadTimeout'>, <class 'OSError'>: <class 'httpcore.ReadError'>} │                                                        │
+│ │ max_bytes = 65536                                                                                                     │                                                        │
+│ │      self = <httpcore._backends.sync.SyncStream object at 0x107ecae90>                                                │                                                        │
+│ │   timeout = 5.0                                                                                                       │                                                        │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                        │
+│                                                                                                                                                                                  │
+│ /opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py:162 in __exit__                                                 │
+│                                                                                                                                                                                  │
+│   159 │   │   │   │   # tell if we get the same exception back                                 ╭──────────────────────────────── locals ─────────────────────────────────╮       │
+│   160 │   │   │   │   value = typ()                                                            │      self = <contextlib._GeneratorContextManager object at 0x107ef24a0> │       │
+│   161 │   │   │   try:                                                                         │ traceback = <traceback object at 0x107d33800>                           │       │
+│ ❱ 162 │   │   │   │   self.gen.throw(value)                                                    │     value = TimeoutError('The read operation timed out')                │       │
+│   163 │   │   │   except StopIteration as exc:                                                 ╰─────────────────────────────────────────────────────────────────────────╯       │
+│   164 │   │   │   │   # Suppress StopIteration *unless* it's the same exception that                                                                                             │
+│   165 │   │   │   │   # was passed to throw().  This prevents a StopIteration                                                                                                    │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpcore/_exceptions.py:14 in map_exceptions                        │
+│                                                                                                                                                                                  │
+│   11 │   except Exception as exc:  # noqa: PIE786                                                                                                                                │
+│   12 │   │   for from_exc, to_exc in map.items():                                                                                                                                │
+│   13 │   │   │   if isinstance(exc, from_exc):                                                                                                                                   │
+│ ❱ 14 │   │   │   │   raise to_exc(exc) from exc                                                                                                                                  │
+│   15 │   │   raise  # pragma: nocover                                                                                                                                            │
+│   16                                                                                                                                                                             │
+│   17                                                                                                                                                                             │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────╮                                                              │
+│ │ map = {<class 'TimeoutError'>: <class 'httpcore.ReadTimeout'>, <class 'OSError'>: <class 'httpcore.ReadError'>} │                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/file.py:228 in download                      │
+│                                                                                                                                                                                  │
+│   225 │   │   │   │   │   self.tools.console.info(f"{cache_name} already downloaded")                                                                                            │
+│   226 │   │   │   │   else:                                                                                                                                                      │
+│   227 │   │   │   │   │   self.tools.console.info(f"Downloading {cache_name}...")                                                                                                │
+│ ❱ 228 │   │   │   │   │   self._fetch_and_write_content(response, filename)                                                                                                      │
+│   229 │   │   except httpx.RequestError as e:                                                                                                                                    │
+│   230 │   │   │   if role:                                                                                                                                                       │
+│   231 │   │   │   │   description = role                                                                                                                                         │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────╮                                          │
+│ │ cache_full_name = '/python/3.14/macOS/Python-3.14-macOS-support.b8.tar.gz'                                                          │                                          │
+│ │      cache_name = 'Python-3.14-macOS-support.b8.tar.gz'                                                                             │                                          │
+│ │     description = 'support package'                                                                                                 │                                          │
+│ │   download_path = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support')                                     │                                          │
+│ │        filename = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support/Python-3.14-macOS-support.b8.tar.gz') │                                          │
+│ │    header_value = None                                                                                                              │                                          │
+│ │            hint = 'is your computer offline?\n\nThe reported cause of the problem was The read operat'+13                           │                                          │
+│ │        response = <Response [200 OK]>                                                                                               │                                          │
+│ │            role = 'support package'                                                                                                 │                                          │
+│ │            self = <briefcase.integrations.file.File object at 0x1063034d0>                                                          │                                          │
+│ │             url = 'https://briefcase-support.s3.amazonaws.com/python/3.14/macOS/Python-3.14-macOS-s'+16                             │                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                          │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/file.py:313 in _fetch_and_write_content      │
+│                                                                                                                                                                                  │
+│   310 │   │   │   │   │   progress_bar = self.tools.console.progress_bar()                                                                                                       │
+│   311 │   │   │   │   │   task_id = progress_bar.add_task("Downloader", total=int(total))                                                                                        │
+│   312 │   │   │   │   │   with progress_bar:                                                                                                                                     │
+│ ❱ 313 │   │   │   │   │   │   for data in response.iter_bytes(chunk_size=1024 * 1024):                                                                                           │
+│   314 │   │   │   │   │   │   │   temp_file.write(data)                                                                                                                          │
+│   315 │   │   │   │   │   │   │   progress_bar.update(task_id, advance=len(data))                                                                                                │
+│   316                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │     filename = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support/Python-3.14-macOS-support.b8.tar.gz')                                             │ │
+│ │ progress_bar = <rich.progress.Progress object at 0x10d112120>                                                                                                                │ │
+│ │     response = <Response [200 OK]>                                                                                                                                           │ │
+│ │         self = <briefcase.integrations.file.File object at 0x1063034d0>                                                                                                      │ │
+│ │      task_id = 0                                                                                                                                                             │ │
+│ │    temp_file = <_TemporaryFileWrapper file=<_io.BufferedRandom                                                                                                               │ │
+│ │                name='/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support/Python-3.14-macOS-support.b8.tar.gz.ncczpgtj.download'>>                               │ │
+│ │        total = '28342257'                                                                                                                                                    │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_models.py:897 in iter_bytes                                  │
+│                                                                                                                                                                                  │
+│    894 │   │   │   decoder = self._get_content_decoder()                                                                                                                         │
+│    895 │   │   │   chunker = ByteChunker(chunk_size=chunk_size)                                                                                                                  │
+│    896 │   │   │   with request_context(request=self._request):                                                                                                                  │
+│ ❱  897 │   │   │   │   for raw_bytes in self.iter_raw():                                                                                                                         │
+│    898 │   │   │   │   │   decoded = decoder.decode(raw_bytes)                                                                                                                   │
+│    899 │   │   │   │   │   for chunk in chunker.decode(decoded):                                                                                                                 │
+│    900 │   │   │   │   │   │   yield chunk                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ chunk_size = 1048576                                                                                                                                                         │ │
+│ │    chunker = <httpx._decoders.ByteChunker object at 0x10d112ba0>                                                                                                             │ │
+│ │    decoded = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc… │ │
+│ │    decoder = <httpx._decoders.IdentityDecoder object at 0x10d112a50>                                                                                                         │ │
+│ │  raw_bytes = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc… │ │
+│ │       self = <Response [200 OK]>                                                                                                                                             │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_models.py:951 in iter_raw                                    │
+│                                                                                                                                                                                  │
+│    948 │   │   chunker = ByteChunker(chunk_size=chunk_size)                                                                                                                      │
+│    949 │   │                                                                                                                                                                     │
+│    950 │   │   with request_context(request=self._request):                                                                                                                      │
+│ ❱  951 │   │   │   for raw_stream_bytes in self.stream:                                                                                                                          │
+│    952 │   │   │   │   self._num_bytes_downloaded += len(raw_stream_bytes)                                                                                                       │
+│    953 │   │   │   │   for chunk in chunker.decode(raw_stream_bytes):                                                                                                            │
+│    954 │   │   │   │   │   yield chunk                                                                                                                                           │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │            chunk = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x… │ │
+│ │       chunk_size = None                                                                                                                                                      │ │
+│ │          chunker = <httpx._decoders.ByteChunker object at 0x107ecb4d0>                                                                                                       │ │
+│ │ raw_stream_bytes = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x… │ │
+│ │             self = <Response [200 OK]>                                                                                                                                       │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_client.py:153 in __iter__                                    │
+│                                                                                                                                                                                  │
+│    150 │   │   self._start = start                                                                                                                                               │
+│    151 │                                                                                                                                                                         │
+│    152 │   def __iter__(self) -> typing.Iterator[bytes]:                                                                                                                         │
+│ ❱  153 │   │   for chunk in self._stream:                                                                                                                                        │
+│    154 │   │   │   yield chunk                                                                                                                                                   │
+│    155 │                                                                                                                                                                         │
+│    156 │   def close(self) -> None:                                                                                                                                              │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ chunk = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe0… │ │
+│ │  self = <httpx._client.BoundSyncStream object at 0x10d111940>                                                                                                                │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_transports/default.py:126 in __iter__                        │
+│                                                                                                                                                                                  │
+│   123 │   │   self._httpcore_stream = httpcore_stream                                                                                                                            │
+│   124 │                                                                                                                                                                          │
+│   125 │   def __iter__(self) -> typing.Iterator[bytes]:                                                                                                                          │
+│ ❱ 126 │   │   with map_httpcore_exceptions():                                                                                                                                    │
+│   127 │   │   │   for part in self._httpcore_stream:                                                                                                                             │
+│   128 │   │   │   │   yield part                                                                                                                                                 │
+│   129                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │ part = b'\x0b\x16S\xbd%\xf8\xcd\x85\xf1"E\x8a\x97\x8d\xc1\x06\x16\xb6"U\x9aL\xa8qZ\xea\xf8\\x\xc7\xc2"Qbb\xf8\xb3f|\xf0\x92\x03\x18\x17\x1bM\xdcU\x9c\x1b\xa7\x97\xfc]\xe0\… │ │
+│ │ self = <httpx._transports.default.ResponseStream object at 0x10d111550>                                                                                                      │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/contextlib.py:162 in __exit__                                                 │
+│                                                                                                                                                                                  │
+│   159 │   │   │   │   # tell if we get the same exception back                                 ╭──────────────────────────────── locals ─────────────────────────────────╮       │
+│   160 │   │   │   │   value = typ()                                                            │      self = <contextlib._GeneratorContextManager object at 0x107ef2430> │       │
+│   161 │   │   │   try:                                                                         │ traceback = <traceback object at 0x10d115840>                           │       │
+│ ❱ 162 │   │   │   │   self.gen.throw(value)                                                    │     value = ReadTimeout(TimeoutError('The read operation timed out'))   │       │
+│   163 │   │   │   except StopIteration as exc:                                                 ╰─────────────────────────────────────────────────────────────────────────╯       │
+│   164 │   │   │   │   # Suppress StopIteration *unless* it's the same exception that                                                                                             │
+│   165 │   │   │   │   # was passed to throw().  This prevents a StopIteration                                                                                                    │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/httpx/_transports/default.py:118 in map_httpcore_exceptions         │
+│                                                                                                                                                                                  │
+│   115 │   │   │   raise                                                                        ╭───────────────── locals ─────────────────╮                                      │
+│   116 │   │                                                                                    │ message = 'The read operation timed out' │                                      │
+│   117 │   │   message = str(exc)                                                               ╰──────────────────────────────────────────╯                                      │
+│ ❱ 118 │   │   raise mapped_exc(message) from exc                                                                                                                                 │
+│   119                                                                                                                                                                            │
+│   120                                                                                                                                                                            │
+│   121 class ResponseStream(SyncByteStream):                                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/__main__.py:27 in main                                    │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ ❱ 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────────────────╮                │
+│ │       command = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900>                                                                      │                │
+│ │       console = <briefcase.console.Console object at 0x106301010>                                                                                             │                │
+│ │             e = NetworkFailure('download support package', 'is your computer offline?\n\nThe reported cause of the problem was The read operation timed out') │                │
+│ │ extra_cmdline = []                                                                                                                                            │                │
+│ │       options = {                                                                                                                                             │                │
+│ │                 │   'appname': None,                                                                                                                          │                │
+│ │                 │   'update': False,                                                                                                                          │                │
+│ │                 │   'update_requirements': False,                                                                                                             │                │
+│ │                 │   'update_support': False,                                                                                                                  │                │
+│ │                 │   'update_stub': False,                                                                                                                     │                │
+│ │                 │   'update_resources': False,                                                                                                                │                │
+│ │                 │   'no_update': False,                                                                                                                       │                │
+│ │                 │   'test_mode': False,                                                                                                                       │                │
+│ │                 │   'debugger': None,                                                                                                                         │                │
+│ │                 │   'debugger_host': 'localhost',                                                                                                             │                │
+│ │                 │   ... +2                                                                                                                                    │                │
+│ │                 }                                                                                                                                             │                │
+│ │     overrides = {}                                                                                                                                            │                │
+│ │        result = 200                                                                                                                                           │                │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/run.py:388 in __call__                           │
+│                                                                                                                                                                                  │
+│   385 │   │   │   or (not exec_file.exists())  # Executable binary doesn't exist yet                                                                                             │
+│   386 │   │   │   or (app.test_mode and not no_update)  # Test mode, but updates are enabled                                                                                     │
+│   387 │   │   ):                                                                                                                                                                 │
+│ ❱ 388 │   │   │   state = self.build_command(                                                                                                                                    │
+│   389 │   │   │   │   app,                                                                                                                                                       │
+│   390 │   │   │   │   update=update,                                                                                                                                             │
+│   391 │   │   │   │   update_requirements=update_requirements,                                                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                                                                                              │ │
+│ │             appname = None                                                                                                                                                   │ │
+│ │            debugger = None                                                                                                                                                   │ │
+│ │       debugger_host = 'localhost'                                                                                                                                            │ │
+│ │       debugger_port = 5678                                                                                                                                                   │ │
+│ │           exec_file = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app/Contents/MacOS/Hello  │ │
+│ │                       World')                                                                                                                                                │ │
+│ │           no_update = False                                                                                                                                                  │ │
+│ │             options = {}                                                                                                                                                     │ │
+│ │         passthrough = []                                                                                                                                                     │ │
+│ │                self = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900>                                                                               │ │
+│ │       template_file = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app')                                     │ │
+│ │           test_mode = False                                                                                                                                                  │ │
+│ │              update = False                                                                                                                                                  │ │
+│ │ update_requirements = False                                                                                                                                                  │ │
+│ │    update_resources = False                                                                                                                                                  │ │
+│ │         update_stub = False                                                                                                                                                  │ │
+│ │      update_support = False                                                                                                                                                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/build.py:159 in __call__                         │
+│                                                                                                                                                                                  │
+│   156 │   │                                                                                                                                                                      │
+│   157 │   │   state = None                                                                                                                                                       │
+│   158 │   │   for _, app_obj in sorted(apps_to_build.items()):                                                                                                                   │
+│ ❱ 159 │   │   │   state = self._build_app(                                                                                                                                       │
+│   160 │   │   │   │   app_obj,                                                                                                                                                   │
+│   161 │   │   │   │   update=update,                                                                                                                                             │
+│   162 │   │   │   │   update_requirements=update_requirements,                                                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────── locals ─────────────────────────────────────────────╮                                                                             │
+│ │                   _ = 'helloworld'                                                               │                                                                             │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                  │                                                                             │
+│ │            app_name = None                                                                       │                                                                             │
+│ │             app_obj = <com.example.helloworld v0.0.1 AppConfig>                                  │                                                                             │
+│ │       apps_to_build = {'helloworld': <com.example.helloworld v0.0.1 AppConfig>}                  │                                                                             │
+│ │            debugger = None                                                                       │                                                                             │
+│ │           no_update = False                                                                      │                                                                             │
+│ │             options = {}                                                                         │                                                                             │
+│ │                self = <briefcase.platforms.macOS.app.macOSAppBuildCommand object at 0x1063038c0> │                                                                             │
+│ │               state = None                                                                       │                                                                             │
+│ │           test_mode = False                                                                      │                                                                             │
+│ │              update = False                                                                      │                                                                             │
+│ │ update_requirements = False                                                                      │                                                                             │
+│ │    update_resources = False                                                                      │                                                                             │
+│ │         update_stub = False                                                                      │                                                                             │
+│ │      update_support = False                                                                      │                                                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                             │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/build.py:69 in _build_app                        │
+│                                                                                                                                                                                  │
+│    66 │   │   │   )                                                                                                                                                              │
+│    67 │   │                                                                                                                                                                      │
+│    68 │   │   if not self.bundle_path(app).exists():                                                                                                                             │
+│ ❱  69 │   │   │   state = self.create_command(app, **options)                                                                                                                    │
+│    70 │   │   elif (                                                                                                                                                             │
+│    71 │   │   │   update  # An explicit update has been requested                                                                                                                │
+│    72 │   │   │   or update_requirements  # An explicit requirements update has been requested                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────── locals ─────────────────────────────────────────────╮                                                                             │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                  │                                                                             │
+│ │           no_update = False                                                                      │                                                                             │
+│ │             options = {}                                                                         │                                                                             │
+│ │                self = <briefcase.platforms.macOS.app.macOSAppBuildCommand object at 0x1063038c0> │                                                                             │
+│ │              update = False                                                                      │                                                                             │
+│ │ update_requirements = False                                                                      │                                                                             │
+│ │    update_resources = False                                                                      │                                                                             │
+│ │         update_stub = False                                                                      │                                                                             │
+│ │      update_support = False                                                                      │                                                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                             │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/create.py:1043 in __call__                       │
+│                                                                                                                                                                                  │
+│   1040 │   │                                                                                                                                                                     │
+│   1041 │   │   state = None                                                                                                                                                      │
+│   1042 │   │   for _, app_obj in sorted(apps_to_create.items()):                                                                                                                 │
+│ ❱ 1043 │   │   │   state = self.create_app(                                                                                                                                      │
+│   1044 │   │   │   │   app_obj,                                                                                                                                                  │
+│   1045 │   │   │   │   **full_options(state, options),                                                                                                                           │
+│   1046 │   │   │   )                                                                                                                                                             │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────── locals ───────────────────────────────────────────╮                                                                                 │
+│ │              _ = 'helloworld'                                                                │                                                                                 │
+│ │            app = <com.example.helloworld v0.0.1 AppConfig>                                   │                                                                                 │
+│ │       app_name = None                                                                        │                                                                                 │
+│ │        app_obj = <com.example.helloworld v0.0.1 AppConfig>                                   │                                                                                 │
+│ │ apps_to_create = {'helloworld': <com.example.helloworld v0.0.1 AppConfig>}                   │                                                                                 │
+│ │        options = {}                                                                          │                                                                                 │
+│ │           self = <briefcase.platforms.macOS.app.macOSAppCreateCommand object at 0x106303a10> │                                                                                 │
+│ │          state = None                                                                        │                                                                                 │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────╯                                                                                 │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/create.py:970 in create_app                      │
+│                                                                                                                                                                                  │
+│    967 │   │   │   )                                                                                                                                                             │
+│    968 │   │   else:                                                                                                                                                             │
+│    969 │   │   │   self.console.info("Installing support package...", prefix=app.app_name)                                                                                       │
+│ ❱  970 │   │   │   self.install_app_support_package(app=app)                                                                                                                     │
+│    971 │   │   │                                                                                                                                                                 │
+│    972 │   │   │   try:                                                                                                                                                          │
+│    973 │   │   │   │   # If the platform uses a stub binary, the template will define a binary                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────╮                                             │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                                                          │                                             │
+│ │ bundle_path = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app') │                                             │
+│ │     options = {}                                                                                                                 │                                             │
+│ │        self = <briefcase.platforms.macOS.app.macOSAppCreateCommand object at 0x106303a10>                                        │                                             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                             │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/platforms/macOS/app.py:63 in install_app_support_package  │
+│                                                                                                                                                                                  │
+│    60 │   │                                                                                                                                                                      │
+│    61 │   │   :param app: The config object for the app                                                                                                                          │
+│    62 │   │   """                                                                                                                                                                │
+│ ❱  63 │   │   super().install_app_support_package(app)                                                                                                                           │
+│    64 │   │                                                                                                                                                                      │
+│    65 │   │   # Copy the stdlib into its final location                                                                                                                          │
+│    66 │   │   with self.console.wait_bar("Copying standard library into app bundle..."):                                                                                         │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────── locals ──────────────────────────────────────╮                                                                                           │
+│ │  app = <com.example.helloworld v0.0.1 AppConfig>                                   │                                                                                           │
+│ │ self = <briefcase.platforms.macOS.app.macOSAppCreateCommand object at 0x106303a10> │                                                                                           │
+│ ╰────────────────────────────────────────────────────────────────────────────────────╯                                                                                           │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/create.py:331 in install_app_support_package     │
+│                                                                                                                                                                                  │
+│    328 │   │   except KeyError:                                                                                                                                                  │
+│    329 │   │   │   self.console.info("No support package required.")                                                                                                             │
+│    330 │   │   else:                                                                                                                                                             │
+│ ❱  331 │   │   │   support_file_path = self._download_support_package(app)                                                                                                       │
+│    332 │   │   │   self._unpack_support_package(support_file_path, support_path)                                                                                                 │
+│    333 │                                                                                                                                                                         │
+│    334 │   def _download_support_package(self, app: AppConfig):                                                                                                                  │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────╮                                    │
+│ │          app = <com.example.helloworld v0.0.1 AppConfig>                                                                                  │                                    │
+│ │         self = <briefcase.platforms.macOS.app.macOSAppCreateCommand object at 0x106303a10>                                                │                                    │
+│ │ support_path = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/support') │                                    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                    │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/create.py:392 in _download_support_package       │
+│                                                                                                                                                                                  │
+│    389 │   │   │   │                                                                                                                                                             │
+│    390 │   │   │   │   # Download the support file, caching the result                                                                                                           │
+│    391 │   │   │   │   # in the user's briefcase support cache directory.                                                                                                        │
+│ ❱  392 │   │   │   │   return self.tools.file.download(                                                                                                                          │
+│    393 │   │   │   │   │   url=support_package_url,                                                                                                                              │
+│    394 │   │   │   │   │   download_path=download_path,                                                                                                                          │
+│    395 │   │   │   │   │   role="support package",                                                                                                                               │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────── locals ────────────────────────────────────────────────────╮                                                               │
+│ │                    app = <com.example.helloworld v0.0.1 AppConfig>                                             │                                                               │
+│ │ custom_support_package = False                                                                                 │                                                               │
+│ │          download_path = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support')         │                                                               │
+│ │                   self = <briefcase.platforms.macOS.app.macOSAppCreateCommand object at 0x106303a10>           │                                                               │
+│ │    support_package_url = 'https://briefcase-support.s3.amazonaws.com/python/3.14/macOS/Python-3.14-macOS-s'+16 │                                                               │
+│ │       support_revision = 8                                                                                     │                                                               │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                               │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/file.py:277 in download                      │
+│                                                                                                                                                                                  │
+│   274 │   │   │   │   │   f"The reported cause of the problem was {e}"                                                                                                           │
+│   275 │   │   │   │   )                                                                                                                                                          │
+│   276 │   │   │                                                                                                                                                                  │
+│ ❱ 277 │   │   │   raise NetworkFailure(                                                                                                                                          │
+│   278 │   │   │   │   f"download {description}",                                                                                                                                 │
+│   279 │   │   │   │   hint,                                                                                                                                                      │
+│   280 │   │   │   ) from e                                                                                                                                                       │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────╮                                          │
+│ │ cache_full_name = '/python/3.14/macOS/Python-3.14-macOS-support.b8.tar.gz'                                                          │                                          │
+│ │      cache_name = 'Python-3.14-macOS-support.b8.tar.gz'                                                                             │                                          │
+│ │     description = 'support package'                                                                                                 │                                          │
+│ │   download_path = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support')                                     │                                          │
+│ │        filename = PosixPath('/Users/emretaspinar/Library/Caches/org.beeware.briefcase/support/Python-3.14-macOS-support.b8.tar.gz') │                                          │
+│ │    header_value = None                                                                                                              │                                          │
+│ │            hint = 'is your computer offline?\n\nThe reported cause of the problem was The read operat'+13                           │                                          │
+│ │        response = <Response [200 OK]>                                                                                               │                                          │
+│ │            role = 'support package'                                                                                                 │                                          │
+│ │            self = <briefcase.integrations.file.File object at 0x1063034d0>                                                          │                                          │
+│ │             url = 'https://briefcase-support.s3.amazonaws.com/python/3.14/macOS/Python-3.14-macOS-s'+16                             │                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+NetworkFailure: Unable to download support package; is your computer offline?
+
+The reported cause of the problem was The read operation timed out
