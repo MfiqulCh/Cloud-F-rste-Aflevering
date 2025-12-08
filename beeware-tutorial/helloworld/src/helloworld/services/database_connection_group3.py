@@ -7,12 +7,34 @@ sql_query_template = {}
 #TODO: fill in these templates with the right SQL query
 sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
 sql_query_template['update_dcr_role'] = "UPDATE DCRUsers SET Role = %(role)s WHERE Email = %(email)s"
-sql_query_template['get_all_instances'] = "SELECT Instances.InstanceID, Instances.IsInValidState, UserSimulations.Email FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID"
-sql_query_template['get_instances_for_user'] = "SELECT Instances.InstanceID, Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s"
+
+sql_query_template['get_all_instances'] = """
+SELECT Instances.InstanceID, Instances.IsInValidState, UserInstances.Email 
+FROM Instances 
+INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID
+"""
+
+sql_query_template['get_instances_for_user'] = """
+SELECT Instances.InstanceID, Instances.IsInValidState
+FROM Instances
+INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID
+WHERE UserInstances.Email = %(email)s
+"""
+
 sql_query_template['insert_instance'] = "INSERT INTO Instances (InstanceID, IsInValidState) VALUES (%(id)s, %(valid)s)"
-sql_query_template['insert_instance_for_user'] = "INSERT INTO UserSimulations (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"
+
+sql_query_template['insert_instance_for_user'] = """
+INSERT INTO UserInstances (Email, InstanceID)
+VALUES (%(email)s, %(instance_id)s)
+"""
+
 sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
-sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserSimulations WHERE InstanceID = %(id)s"
+
+sql_query_template['delete_instance_from_user_instance'] = """
+DELETE FROM UserInstances
+WHERE InstanceID = %(id)s
+"""
+
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 
 def db_connect():
@@ -52,7 +74,8 @@ def update_dcr_role(email,role):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        cursor.execute(sql_query_template['update_dcr_role'], {'role':role,'email':email}, multi=False)
+        cursor.execute(sql_query_template['update_dcr_role'],
+                       {'role': role, 'email': email})
         cnx.commit()
         cursor.close()
         cnx.close()
@@ -89,8 +112,10 @@ def insert_instance(id, valid, email):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        cursor.execute(sql_query_template['insert_instance'], {'id':id,'valid':valid}, multi=False)
-        cursor.execute(sql_query_template['insert_instance_for_user'], {'email':email,'instance_id':id}, multi=False)
+        cursor.execute(sql_query_template['insert_instance'],
+                       {'id': id, 'valid': valid})
+        cursor.execute(sql_query_template['insert_instance_for_user'],
+                       {'email': email, 'instance_id': id})
         cnx.commit()
         cursor.close()
         cnx.close()
@@ -101,7 +126,8 @@ def update_instance(id, valid):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        cursor.execute(sql_query_template['update_instance'],{'id':id,'valid':valid}, multi=False)
+        cursor.execute(sql_query_template['update_instance'],
+                       {'id': id, 'valid': valid})
         cnx.commit()
         cursor.close()
         cnx.close()
@@ -112,8 +138,10 @@ def delete_instance(id):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        cursor.execute(sql_query_template['delete_instance_from_user_instance'], {'id':id}, multi=False)
-        cursor.execute(sql_query_template['delete_instance'], {'id':id}, multi=False)
+        cursor.execute(sql_query_template['delete_instance_from_user_instance'],
+                       {'id': id})
+        cursor.execute(sql_query_template['delete_instance'],
+                       {'id': id})
         cnx.commit()
         cursor.close()
         cnx.close()
