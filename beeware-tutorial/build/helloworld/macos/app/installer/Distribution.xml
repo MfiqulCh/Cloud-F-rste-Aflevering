@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<installer-script minSpecVersion="1.000000">
+    <title>Hello World</title>
+    <welcome file="welcome.html" mime-type="text/html" />
+    <license file="LICENSE" mime-type="text/plain" />
+    <options customize="never" allow-external-scripts="no" hostArchitectures="x86_64,arm64" />
+    <domains enable_localSystem="true" />
+    <choices-outline>
+        <line choice="helloworld"/>
+    </choices-outline>
+    <choice id="helloworld" title="helloworld">
+        <pkg-ref id="helloworld.pkg"/>
+    </choice>
+    <pkg-ref id="helloworld.pkg" auth="Root">helloworld.pkg</pkg-ref>
+</installer-script>

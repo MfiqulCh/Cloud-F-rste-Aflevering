@@ -1,0 +1,501 @@
+Date/Time:       2025-12-08 14:15:48 
+Command line:    /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/briefcase run
+
+OS Release:      Darwin 24.5.0
+OS Version:      Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:43 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T8132
+Architecture:    arm64
+Platform:        macOS-15.5-arm64-arm-64bit-Mach-O
+
+Python exe:      /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/python3.14
+Python version:  3.14.0 (main, Oct  7 2025, 09:34:52) [Clang 17.0.0 (clang-1700.0.13.3)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.3.26
+Target platform: macOS
+Target format:   app
+
+Environment Variables:
+	BUNDLED_DEBUGPY_PATH=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/libs/debugpy
+	COLORTERM=truecolor
+	COMMAND_MODE=unix2003
+	GIT_ASKPASS=********************
+	HOME=/Users/emretaspinar
+	HOMEBREW_CELLAR=/opt/homebrew/Cellar
+	HOMEBREW_PREFIX=/opt/homebrew
+	HOMEBREW_REPOSITORY=/opt/homebrew
+	INFOPATH=/opt/homebrew/share/info:/opt/homebrew/share/info:/opt/homebrew/share/info:
+	LANG=en_US.UTF-8
+	LOGNAME=emretaspinar
+	MallocNanoZone=0
+	OLDPWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial
+	ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+	PATH=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/scripts/noConfigScripts
+	PS1=(venv) %n@%m %1~ %# 
+	PWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial
+	PYDEVD_DISABLE_FILE_VALIDATION=1
+	PYTHONSTARTUP=/Users/emretaspinar/Library/Application Support/Code/User/workspaceStorage/6d40ba68af7debe1fb2bda5af4c81b40/ms-python.python/pythonrc.py
+	PYTHON_BASIC_REPL=1
+	SHELL=/bin/zsh
+	SHLVL=1
+	SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.6CoabZIEsN/Listeners
+	TERM=xterm-256color
+	TERM_PROGRAM=vscode
+	TERM_PROGRAM_VERSION=1.106.3
+	TMPDIR=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/
+	USER=emretaspinar
+	USER_ZDOTDIR=/Users/emretaspinar
+	VIRTUAL_ENV=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv
+	VIRTUAL_ENV_PROMPT=venv
+	VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/.noConfigDebugAdapterEndpoints/endpoint-455ea1aef676318b.txt
+	VSCODE_GIT_ASKPASS_EXTRA_ARGS=********************
+	VSCODE_GIT_ASKPASS_MAIN=********************
+	VSCODE_GIT_ASKPASS_NODE=********************
+	VSCODE_GIT_IPC_HANDLE=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/vscode-git-843bc93f5e.sock
+	VSCODE_INJECTION=1
+	VSCODE_PROFILE_INITIALIZED=1
+	VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+	XPC_FLAGS=0x0
+	XPC_SERVICE_NAME=0
+	ZDOTDIR=/Users/emretaspinar
+	_=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/bin/briefcase
+	__CFBundleIdentifier=com.microsoft.VSCode
+	__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x9
+
+pyproject.toml:
+# This project was generated with 0.3.25 using template: https://github.com/beeware/briefcase-template @ v0.3.25
+[tool.briefcase]
+project_name = "Hello World"
+bundle = "com.example"
+version = "0.0.1"
+url = "https://example.com/helloworld"
+license.file = "LICENSE"
+author = "Jane Developer"
+author_email = "snc178@alumni.ku.dk"
+
+[tool.briefcase.app.helloworld]
+formal_name = "Hello World"
+description = "My first application"
+long_description = """More details about the app should go here.
+"""
+sources = [
+    "src/helloworld",
+    "src/helloworld/services",
+]
+test_sources = [
+    "tests",
+]
+
+requires = [
+    "faker",
+    "httpx",
+    "mysql-connector-python",
+]
+test_requires = [
+    "pytest",
+]
+
+[tool.briefcase.app.helloworld.macOS]
+universal_build = true
+requires = [
+    "toga-cocoa~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.linux]
+requires = [
+    "toga-gtk~=0.5.0",
+    # PyGObject 3.52.1 enforces a requirement on libgirepository-2.0-dev. This library
+    # isn't available on Debian 12/Ubuntu 22.04. If you don't need to support those (or
+    # older) releases, you can remove this version pin. See beeware/toga#3143.
+    "pygobject < 3.52.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.debian]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "libcairo2-dev",
+    # One of the following two packages are needed to compile PyGObject wheel. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository1.0-dev",
+    # "libgirepository-2.0-dev",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK and its GI bindings
+    "gir1.2-gtk-3.0",
+    # One of the following two packages are needed to use PyGObject at runtime. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository-1.0-1",
+    # "libgirepository-2.0-0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # Note: Debian 11 requires gir1.2-webkit2-4.0 instead
+    # "gir1.2-webkit2-4.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.rhel]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.helloworld.linux.system.suse]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to support Python bindings to GTK
+    "gobject-introspection", "typelib(Gtk) = 3.0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "libwebkit2gtk3", "typelib(WebKit2)",
+]
+
+[tool.briefcase.app.helloworld.linux.system.arch]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection",
+    # Runtime dependencies that need to exist so that the
+    # Arch package passes final validation.
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to provide PyGObject bindings
+    "gobject-introspection-runtime",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.appimage]
+manylinux = "manylinux_2_28"
+
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+    # Needed to provide GTK
+    "gtk3-devel",
+    # Dependencies that GTK looks for at runtime, that need to be
+    # in the build environment to be picked up by linuxdeploy
+    "libcanberra-gtk3",
+    "PackageKit-gtk3-module",
+    "gvfs-client",
+]
+
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.flatpak]
+flatpak_runtime = "org.gnome.Platform"
+flatpak_runtime_version = "48"
+flatpak_sdk = "org.gnome.Sdk"
+
+[tool.briefcase.app.helloworld.windows]
+requires = [
+    "toga-winforms~=0.5.0",
+]
+
+# Mobile deployments
+[tool.briefcase.app.helloworld.iOS]
+requires = [
+    "toga-iOS~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.android]
+requires = [
+    "toga-android~=0.5.0",
+]
+
+base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
+
+build_gradle_dependencies = [
+    "com.google.android.material:material:1.12.0",
+    # Needed for DetailedList
+    # "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+    # Needed for MapView
+    # "org.osmdroid:osmdroid-android:6.1.20",
+]
+
+# Web deployments
+[tool.briefcase.app.helloworld.web]
+requires = [
+    "toga-web~=0.5.0",
+]
+style_framework = "Shoelace v2.3"
+
+Briefcase Log:
+[14:15:47]                                                                                                                                                         subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     xattr -p 'com.apple.fileprovider.fpfs#P'                                                                                                        subprocess.py:839
+           '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app'                                                  
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial                                                                      subprocess.py:839
+           >>> Command Output:                                                                                                                                     subprocess.py:839
+           >>>     xattr: /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app: No such xattr:    subprocess.py:839
+           com.apple.fileprovider.fpfs#P                                                                                                                                            
+           >>> Return code: 1                                                                                                                                      subprocess.py:839
+                                                                                                                                                                   subprocess.py:839
+                                                                                                                                                                          app.py:117
+           [helloworld] Building App...                                                                                                                                   app.py:117
+                                                                                                                                                                          app.py:143
+           [helloworld] Ad-hoc signing app...                                                                                                                             app.py:143
+           Signing build/helloworld/macos/app/Hello World.app                                                                                                        __init__.py:723
+                                                                                                                                                                   subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     codesign '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app' --sign -       subprocess.py:839
+           --force --entitlements /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Entitlements.plist                          
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial                                                                      subprocess.py:839
+           >>> Return code: 0                                                                                                                                      subprocess.py:839
+                                                                                                                                                                   subprocess.py:839
+                                                                                                                                                                         build.py:96
+           [helloworld] Built build/helloworld/macos/app/Hello World.app                                                                                                 build.py:96
+                                                                                                                                                                   subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     log stream --style compact --predicate                                                                                                          subprocess.py:839
+           'senderImagePath=="/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello                                           
+           World.app/Contents/MacOS/Hello World" OR                                                                                                                                 
+           (processImagePath=="/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello                                          
+           World.app/Contents/MacOS/Hello World" AND senderImagePath=="/usr/lib/libffi.dylib")'                                                                                     
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial                                                                      subprocess.py:839
+[14:15:48]                                                                                                                                                                run.py:290
+           [helloworld] Starting app...                                                                                                                                   run.py:290
+                                                                                                                                                                   subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     open -n '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app'                 subprocess.py:839
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar                                                                                                                             subprocess.py:839
+           The application cannot be opened because its executable is missing.                                                                                     subprocess.py:196
+           >>> Return code: 1                                                                                                                                      subprocess.py:839
+                                                                                                                                                                   subprocess.py:839
+                                                                                                                                                                      __main__.py:42
+           Unable to start app helloworld.                                                                                                                            __main__.py:43
+           Saving log... started                                                                                                                                      console.py:443
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/platforms/macOS/__init__.py:543 in run_gui_app            │
+│                                                                                                                                                                                  │
+│    540 │   │   │   sub_kwargs = self._prepare_app_kwargs(app=app)                                                                                                                │
+│    541 │   │   │                                                                                                                                                                 │
+│    542 │   │   │   # Start the app in a way that lets us stream the logs                                                                                                         │
+│ ❱  543 │   │   │   self.tools.subprocess.run(                                                                                                                                    │
+│    544 │   │   │   │   # Force a new app to be launched                                                                                                                          │
+│    545 │   │   │   │   ["open", "-n", self.binary_path(app)]                                                                                                                     │
+│    546 │   │   │   │   + (["--args", *passthrough] if passthrough else []),                                                                                                      │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ───────────────────────────────────────────────╮                                                                          │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                             │                                                                          │
+│ │     app_pid = None                                                                                  │                                                                          │
+│ │      kwargs = {}                                                                                    │                                                                          │
+│ │   log_popen = <Popen: returncode: None args: ['log', 'stream', '--style', 'compact', '--pr...>      │                                                                          │
+│ │ passthrough = []                                                                                    │                                                                          │
+│ │        self = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900>              │                                                                          │
+│ │      sender = '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build'+64 │                                                                          │
+│ │  sub_kwargs = {}                                                                                    │                                                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                          │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/subprocess.py:125 in inner                   │
+│                                                                                                                                                                                  │
+│   122 │   │   """                                                                                                                                                                │
+│   123 │   │   # Just run the command if no dynamic elements are active                                                                                                           │
+│   124 │   │   if not sub.tools.console.is_console_controlled:                                                                                                                    │
+│ ❱ 125 │   │   │   return sub_method(sub, args, *wrapped_args, **wrapped_kwargs)                                                                                                  │
+│   126 │   │                                                                                                                                                                      │
+│   127 │   │   remove_dynamic_elements = False                                                                                                                                    │
+│   128                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────╮          │
+│ │           args = ['open', '-n', PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app')] │          │
+│ │            sub = <briefcase.integrations.subprocess.Subprocess object at 0x106303230>                                                                               │          │
+│ │   wrapped_args = ()                                                                                                                                                 │          │
+│ │ wrapped_kwargs = {'cwd': PosixPath('/Users/emretaspinar'), 'check': True}                                                                                           │          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯          │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/subprocess.py:539 in run                     │
+│                                                                                                                                                                                  │
+│   536 │   │   # caller sets stream_output=False, then ensure_console_is_safe() will                                                                                              │
+│   537 │   │   # disable any dynamic console elements while the command runs.                                                                                                     │
+│   538 │   │   if stream_output:                                                                                                                                                  │
+│ ❱ 539 │   │   │   return self._run_and_stream_output(args, filter_func=filter_func, **kwargs)                                                                                    │
+│   540 │   │                                                                                                                                                                      │
+│   541 │   │   # Can't filter non-streamed output.                                                                                                                                │
+│   542 │   │   if filter_func:                                                                                                                                                    │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────────────────╮           │
+│ │          args = ['open', '-n', PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app')] │           │
+│ │   filter_func = None                                                                                                                                               │           │
+│ │        kwargs = {'cwd': PosixPath('/Users/emretaspinar'), 'check': True}                                                                                           │           │
+│ │          self = <briefcase.integrations.subprocess.Subprocess object at 0x106303230>                                                                               │           │
+│ │ stream_output = True                                                                                                                                               │           │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯           │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/integrations/subprocess.py:616 in _run_and_stream_output  │
+│                                                                                                                                                                                  │
+│   613 │   │   self._log_return_code(return_code)                                                                                                                                 │
+│   614 │   │                                                                                                                                                                      │
+│   615 │   │   if check and return_code:                                                                                                                                          │
+│ ❱ 616 │   │   │   raise subprocess.CalledProcessError(return_code, args, stderr=stderr)                                                                                          │
+│   617 │   │                                                                                                                                                                      │
+│   618 │   │   return subprocess.CompletedProcess(args, return_code, stderr=stderr)                                                                                               │
+│   619                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────────────────────╮             │
+│ │        args = ['open', '-n', PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app')] │             │
+│ │       check = True                                                                                                                                               │             │
+│ │ filter_func = None                                                                                                                                               │             │
+│ │      kwargs = {'cwd': PosixPath('/Users/emretaspinar'), 'stdout': -1, 'stderr': -2, 'bufsize': 1}                                                                │             │
+│ │     process = <Popen: returncode: 1 args: ['open', '-n', '/Users/emretaspinar/Desktop/Clou...>                                                                   │             │
+│ │ return_code = 1                                                                                                                                                  │             │
+│ │        self = <briefcase.integrations.subprocess.Subprocess object at 0x106303230>                                                                               │             │
+│ │      stderr = None                                                                                                                                               │             │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+CalledProcessError: Command '['open', '-n', PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app')]' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/__main__.py:27 in main                                    │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ ❱ 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────── locals ─────────────────────────────────────────╮                                                                                     │
+│ │       command = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900> │                                                                                     │
+│ │       console = <briefcase.console.Console object at 0x106301010>                        │                                                                                     │
+│ │             e = BriefcaseCommandError('Unable to start app helloworld.')                 │                                                                                     │
+│ │ extra_cmdline = []                                                                       │                                                                                     │
+│ │       options = {                                                                        │                                                                                     │
+│ │                 │   'appname': None,                                                     │                                                                                     │
+│ │                 │   'update': False,                                                     │                                                                                     │
+│ │                 │   'update_requirements': False,                                        │                                                                                     │
+│ │                 │   'update_support': False,                                             │                                                                                     │
+│ │                 │   'update_stub': False,                                                │                                                                                     │
+│ │                 │   'update_resources': False,                                           │                                                                                     │
+│ │                 │   'no_update': False,                                                  │                                                                                     │
+│ │                 │   'test_mode': False,                                                  │                                                                                     │
+│ │                 │   'debugger': None,                                                    │                                                                                     │
+│ │                 │   'debugger_host': 'localhost',                                        │                                                                                     │
+│ │                 │   ... +2                                                               │                                                                                     │
+│ │                 }                                                                        │                                                                                     │
+│ │     overrides = {}                                                                       │                                                                                     │
+│ │        result = 200                                                                      │                                                                                     │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────╯                                                                                     │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/commands/run.py:409 in __call__                           │
+│                                                                                                                                                                                  │
+│   406 │   │   │   │   "(apps defining 'external_package_path') cannot be run."                                                                                                   │
+│   407 │   │   │   )                                                                                                                                                              │
+│   408 │   │                                                                                                                                                                      │
+│ ❱ 409 │   │   state = self.run_app(                                                                                                                                              │
+│   410 │   │   │   app,                                                                                                                                                           │
+│   411 │   │   │   passthrough=[] if passthrough is None else passthrough,                                                                                                        │
+│   412 │   │   │   **full_options(state, options),                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                                                                                              │ │
+│ │             appname = None                                                                                                                                                   │ │
+│ │            debugger = None                                                                                                                                                   │ │
+│ │       debugger_host = 'localhost'                                                                                                                                            │ │
+│ │       debugger_port = 5678                                                                                                                                                   │ │
+│ │           exec_file = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app/Hello World.app/Contents/MacOS/Hello  │ │
+│ │                       World')                                                                                                                                                │ │
+│ │           no_update = False                                                                                                                                                  │ │
+│ │             options = {}                                                                                                                                                     │ │
+│ │         passthrough = []                                                                                                                                                     │ │
+│ │                self = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900>                                                                               │ │
+│ │               state = None                                                                                                                                                   │ │
+│ │       template_file = PosixPath('/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build/helloworld/macos/app')                                     │ │
+│ │           test_mode = False                                                                                                                                                  │ │
+│ │              update = False                                                                                                                                                  │ │
+│ │ update_requirements = False                                                                                                                                                  │ │
+│ │    update_resources = False                                                                                                                                                  │ │
+│ │         update_stub = False                                                                                                                                                  │ │
+│ │      update_support = False                                                                                                                                                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/platforms/macOS/__init__.py:437 in run_app                │
+│                                                                                                                                                                                  │
+│    434 │   │   │   │   **kwargs,                                                                                                                                                 │
+│    435 │   │   │   )                                                                                                                                                             │
+│    436 │   │   else:                                                                                                                                                             │
+│ ❱  437 │   │   │   self.run_gui_app(                                                                                                                                             │
+│    438 │   │   │   │   app,                                                                                                                                                      │
+│    439 │   │   │   │   passthrough=passthrough,                                                                                                                                  │
+│    440 │   │   │   │   **kwargs,                                                                                                                                                 │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────── locals ────────────────────────────────────────╮                                                                                       │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                │                                                                                       │
+│ │      kwargs = {}                                                                       │                                                                                       │
+│ │ passthrough = []                                                                       │                                                                                       │
+│ │        self = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900> │                                                                                       │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────╯                                                                                       │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/venv/lib/python3.14/site-packages/briefcase/platforms/macOS/__init__.py:574 in run_gui_app            │
+│                                                                                                                                                                                  │
+│    571 │   │   │   │   log_stream=True,                                                                                                                                          │
+│    572 │   │   │   )                                                                                                                                                             │
+│    573 │   │   except subprocess.CalledProcessError as e:                                                                                                                        │
+│ ❱  574 │   │   │   raise BriefcaseCommandError(f"Unable to start app {app.app_name}.") from e                                                                                    │
+│    575 │   │   finally:                                                                                                                                                          │
+│    576 │   │   │   # Ensure the App also terminates when exiting. The ordering here is a little                                                                                  │
+│    577 │   │   │   # odd; the if could/should be outside the context manager, but coverage has                                                                                   │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ───────────────────────────────────────────────╮                                                                          │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                             │                                                                          │
+│ │     app_pid = None                                                                                  │                                                                          │
+│ │      kwargs = {}                                                                                    │                                                                          │
+│ │   log_popen = <Popen: returncode: None args: ['log', 'stream', '--style', 'compact', '--pr...>      │                                                                          │
+│ │ passthrough = []                                                                                    │                                                                          │
+│ │        self = <briefcase.platforms.macOS.app.macOSAppRunCommand object at 0x106302900>              │                                                                          │
+│ │      sender = '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/build'+64 │                                                                          │
+│ │  sub_kwargs = {}                                                                                    │                                                                          │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Unable to start app helloworld.

@@ -1,33 +1,33 @@
+import mysql.connector
 from mysql.connector import connect
+import ssl 
 
 db_password = 'Thisthepassword3'
 
 sql_query_template = {}
 
-#TODO: fill in these templates with the right SQL query
 sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
+# TODO: fill in these templates with the right SQL query
 sql_query_template['update_dcr_role'] = "UPDATE DCRUsers SET Role = %(role)s WHERE Email = %(email)s"
-sql_query_template['get_all_instances'] = "SELECT Instances.InstanceID, Instances.IsInValidState, UserSimulations.Email FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID"
-sql_query_template['get_instances_for_user'] = "SELECT Instances.InstanceID, Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s"
+sql_query_template['get_all_instances'] = "SELECT Instances.InstanceID, Instances.IsInValidState, UserInstances.Email FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID"
+sql_query_template['get_instances_for_user'] = "SELECT Instances.InstanceID, Instances.IsInValidState FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID WHERE UserInstances.Email = %(email)s"
 sql_query_template['insert_instance'] = "INSERT INTO Instances (InstanceID, IsInValidState) VALUES (%(id)s, %(valid)s)"
-sql_query_template['insert_instance_for_user'] = "INSERT INTO UserSimulations (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"
+sql_query_template['insert_instance_for_user'] = "INSERT INTO UserInstances (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"
 sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
-sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserSimulations WHERE InstanceID = %(id)s"
+sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserInstances WHERE InstanceID = %(id)s"
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 
 def db_connect():
     from pathlib import Path
     resources_folder = Path(__file__).parent.resolve()
     cert_filepath = str(resources_folder.joinpath("DigiCertGlobalRootCA.crt.pem"))
-    cnx = connect(
-        user="Group3",
-        password=db_password,
-        host="group3.mysql.database.azure.com",
-        port=3306,
-        database="group3",
-        ssl_ca=cert_filepath,
-        ssl_disabled=False
-    )
+    cnx = mysql.connector.connect(user="Group3",
+                                  password=db_password,
+                                  host="group3.mysql.database.azure.com",
+                                  port=3306,
+                                  database="group3",
+                                  ssl_ca=cert_filepath,
+                                  ssl_disabled=False)
     print(f'[i] cnx is connected: {cnx.is_connected()}')
     return cnx
 
@@ -36,14 +36,10 @@ def get_dcr_role(email):
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
         cursor.execute(sql_query_template['get_dcr_role'], {'email':email})
-        query_result = cursor.fetchone()
+        query_result = cursor.fetchone()[0]
         cursor.close()
         cnx.close()
-
-        if query_result is None:
-            return None
-        return query_result[0]
-    
+        return query_result
     except Exception as ex:
         print(f'[x] error get_dcr_role! {ex}')
         return None
