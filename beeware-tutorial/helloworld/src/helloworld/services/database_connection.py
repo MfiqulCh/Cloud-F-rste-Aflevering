@@ -1,4 +1,4 @@
-from mysql.connector import connect
+import mysql.connector
 
 db_password = 'Thisthepassword3'
 
@@ -15,6 +15,7 @@ sql_query_template['insert_instance_for_user'] = "INSERT INTO UserSimulations (E
 sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
 sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserSimulations WHERE InstanceID = %(id)s"
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
+sql_query_template['get_instance_valid'] = "SELECT Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s AND Instances.InstanceID = %(instance_id)s"
 
 def db_connect():
     from pathlib import Path
@@ -114,3 +115,17 @@ def delete_instance(id):
         cnx.close()
     except Exception as ex:
         print(f'[x] error delete_instance! {ex}')
+        
+        
+def get_instance_valid(email, instance_id):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['get_instance_valid'], {'email':email,'instance_id':instance_id})
+        query_result = cursor.fetchone()[0]
+        cursor.close()
+        cnx.close()
+        return query_result
+    except Exception as ex:
+        print(f'[x] error get_instance_valid! {ex}')
+        return None
