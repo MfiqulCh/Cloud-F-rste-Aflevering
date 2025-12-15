@@ -12,6 +12,8 @@ from services import database_connection_group3 as dbc
 
 class CloudApp(toga.App):
     graph_id = 2004854
+    ### https://dcrgraphs.net/ProcessClassification/Explorer?id=2004854
+    ### https://dcrgraphs.net/Tool?id=2004854
     dcr_ar = None
     current_instance_id = None
 
