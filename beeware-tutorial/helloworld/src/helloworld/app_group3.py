@@ -7,8 +7,8 @@ import httpx
 
 from toga.style.pack import COLUMN, ROW
 from toga.style import Pack
-from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
-from services import database_connection as dbc
+from services.dcr_active_repository_group3 import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
+from services import database_connection_group3 as dbc
 
 class CloudApp(toga.App):
     graph_id = 2004854
