@@ -5,7 +5,7 @@ My first application
 import toga
 import httpx
 
-from toga.style.pack import COLUMN, ROW
+from toga.constants import COLUMN, ROW
 from toga.style import Pack
 from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
 from services import database_connection as dbc

@@ -1,0 +1,451 @@
+Date/Time:       2025-12-06 13:55:22 
+Command line:    /Users/emretaspinar/.venvs/daily/bin/briefcase dev
+
+OS Release:      Darwin 24.5.0
+OS Version:      Darwin Kernel Version 24.5.0: Tue Apr 22 19:54:43 PDT 2025; root:xnu-11417.121.6~2/RELEASE_ARM64_T8132
+Architecture:    arm64
+Platform:        macOS-15.5-arm64-arm-64bit-Mach-O
+
+Python exe:      /Users/emretaspinar/.venvs/daily/bin/python3.14
+Python version:  3.14.0 (main, Oct  7 2025, 09:34:52) [Clang 17.0.0 (clang-1700.0.13.3)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.3.26
+Target platform: macOS
+Target format:   app
+
+Environment Variables:
+	BUNDLED_DEBUGPY_PATH=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/libs/debugpy
+	COLORTERM=truecolor
+	COMMAND_MODE=unix2003
+	GIT_ASKPASS=********************
+	HOME=/Users/emretaspinar
+	HOMEBREW_CELLAR=/opt/homebrew/Cellar
+	HOMEBREW_PREFIX=/opt/homebrew
+	HOMEBREW_REPOSITORY=/opt/homebrew
+	INFOPATH=/opt/homebrew/share/info:/opt/homebrew/share/info:/opt/homebrew/share/info:
+	LANG=en_US.UTF-8
+	LOGNAME=emretaspinar
+	MallocNanoZone=0
+	OLDPWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial
+	ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+	PATH=/Users/emretaspinar/.venvs/daily/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand:/Users/emretaspinar/Library/Application Support/Code/User/globalStorage/github.copilot-chat/copilotCli:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/bundled/scripts/noConfigScripts
+	PS1=(daily) %n@%m %1~ %# 
+	PWD=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld
+	PYDEVD_DISABLE_FILE_VALIDATION=1
+	PYTHONSTARTUP=/Users/emretaspinar/Library/Application Support/Code/User/workspaceStorage/c36b3d58988676890a9db91dc33e0e77/ms-python.python/pythonrc.py
+	PYTHON_BASIC_REPL=1
+	SHELL=/bin/zsh
+	SHLVL=1
+	SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.6CoabZIEsN/Listeners
+	TERM=xterm-256color
+	TERM_PROGRAM=vscode
+	TERM_PROGRAM_VERSION=1.106.0
+	TMPDIR=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/
+	USER=emretaspinar
+	USER_ZDOTDIR=/Users/emretaspinar
+	VIRTUAL_ENV=/Users/emretaspinar/.venvs/daily
+	VIRTUAL_ENV_PROMPT=daily
+	VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=/Users/emretaspinar/.vscode/extensions/ms-python.debugpy-2025.16.0-darwin-arm64/.noConfigDebugAdapterEndpoints/endpoint-47c2fac9b3f8af54.txt
+	VSCODE_GIT_ASKPASS_EXTRA_ARGS=********************
+	VSCODE_GIT_ASKPASS_MAIN=********************
+	VSCODE_GIT_ASKPASS_NODE=********************
+	VSCODE_GIT_IPC_HANDLE=/var/folders/27/2r388jtx5jn_gqm_98fpfygh0000gn/T/vscode-git-dc152853cd.sock
+	VSCODE_INJECTION=1
+	VSCODE_PROFILE_INITIALIZED=1
+	VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+	XPC_FLAGS=0x0
+	XPC_SERVICE_NAME=0
+	ZDOTDIR=/Users/emretaspinar
+	_=/Users/emretaspinar/.venvs/daily/bin/briefcase
+	__CFBundleIdentifier=com.microsoft.VSCode
+	__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x9
+
+pyproject.toml:
+# This project was generated with 0.3.25 using template: https://github.com/beeware/briefcase-template @ v0.3.25
+[tool.briefcase]
+project_name = "Hello World"
+bundle = "com.example"
+version = "0.0.1"
+url = "https://example.com/helloworld"
+license.file = "LICENSE"
+author = "Jane Developer"
+author_email = "snc178@alumni.ku.dk"
+
+[tool.briefcase.app.helloworld]
+formal_name = "Hello World"
+description = "My first application"
+long_description = """More details about the app should go here.
+"""
+sources = [
+    "src/helloworld",
+    "src/helloworld/services",
+]
+test_sources = [
+    "tests",
+]
+
+requires = [
+    "faker",
+    "httpx",
+    "mysql-connector-python",
+]
+test_requires = [
+    "pytest",
+]
+
+[tool.briefcase.app.helloworld.macOS]
+universal_build = true
+requires = [
+    "toga-cocoa~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.linux]
+requires = [
+    "toga-gtk~=0.5.0",
+    # PyGObject 3.52.1 enforces a requirement on libgirepository-2.0-dev. This library
+    # isn't available on Debian 12/Ubuntu 22.04. If you don't need to support those (or
+    # older) releases, you can remove this version pin. See beeware/toga#3143.
+    "pygobject < 3.52.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.debian]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "libcairo2-dev",
+    # One of the following two packages are needed to compile PyGObject wheel. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository1.0-dev",
+    # "libgirepository-2.0-dev",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK and its GI bindings
+    "gir1.2-gtk-3.0",
+    # One of the following two packages are needed to use PyGObject at runtime. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository-1.0-1",
+    # "libgirepository-2.0-0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # Note: Debian 11 requires gir1.2-webkit2-4.0 instead
+    # "gir1.2-webkit2-4.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.rhel]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.helloworld.linux.system.suse]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to support Python bindings to GTK
+    "gobject-introspection", "typelib(Gtk) = 3.0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "libwebkit2gtk3", "typelib(WebKit2)",
+]
+
+[tool.briefcase.app.helloworld.linux.system.arch]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection",
+    # Runtime dependencies that need to exist so that the
+    # Arch package passes final validation.
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to provide PyGObject bindings
+    "gobject-introspection-runtime",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.appimage]
+manylinux = "manylinux_2_28"
+
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+    # Needed to provide GTK
+    "gtk3-devel",
+    # Dependencies that GTK looks for at runtime, that need to be
+    # in the build environment to be picked up by linuxdeploy
+    "libcanberra-gtk3",
+    "PackageKit-gtk3-module",
+    "gvfs-client",
+]
+
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.flatpak]
+flatpak_runtime = "org.gnome.Platform"
+flatpak_runtime_version = "48"
+flatpak_sdk = "org.gnome.Sdk"
+
+[tool.briefcase.app.helloworld.windows]
+requires = [
+    "toga-winforms~=0.5.0",
+]
+
+# Mobile deployments
+[tool.briefcase.app.helloworld.iOS]
+requires = [
+    "toga-iOS~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.android]
+requires = [
+    "toga-android~=0.5.0",
+]
+
+base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
+
+build_gradle_dependencies = [
+    "com.google.android.material:material:1.12.0",
+    # Needed for DetailedList
+    # "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+    # Needed for MapView
+    # "org.osmdroid:osmdroid-android:6.1.20",
+]
+
+# Web deployments
+[tool.briefcase.app.helloworld.web]
+requires = [
+    "toga-web~=0.5.0",
+]
+style_framework = "Shoelace v2.3"
+
+Briefcase Log:
+[13:55:18]                                                                                                                                                                dev.py:307
+           [helloworld] Installing requirements...                                                                                                                        dev.py:307
+           Installing dev requirements... started                                                                                                                         dev.py:108
+                                                                                                                                                                   subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     /Users/emretaspinar/.venvs/daily/bin/python3.14 -u -X utf8 -m pip install --upgrade faker httpx mysql-connector-python 'toga-cocoa~=0.5.0'      subprocess.py:839
+           'std-nslog~=1.0.3' pytest                                                                                                                                                
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld                                                           subprocess.py:839
+[13:55:19] Collecting faker                                                                                                                                        subprocess.py:196
+             Downloading faker-38.2.0-py3-none-any.whl.metadata (16 kB)                                                                                            subprocess.py:196
+           Requirement already satisfied: httpx in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (0.28.1)                                          subprocess.py:196
+           Requirement already satisfied: mysql-connector-python in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (9.5.0)                          subprocess.py:196
+           Collecting toga-cocoa~=0.5.0                                                                                                                            subprocess.py:196
+             Downloading toga_cocoa-0.5.3-py3-none-any.whl.metadata (3.3 kB)                                                                                       subprocess.py:196
+           Collecting std-nslog~=1.0.3                                                                                                                             subprocess.py:196
+             Using cached std_nslog-1.0.3-py3-none-any.whl.metadata (3.6 kB)                                                                                       subprocess.py:196
+           Collecting pytest                                                                                                                                       subprocess.py:196
+             Using cached pytest-9.0.1-py3-none-any.whl.metadata (7.6 kB)                                                                                          subprocess.py:196
+           Requirement already satisfied: fonttools<5.0.0,>=4.42.1 in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from toga-cocoa~=0.5.0)       subprocess.py:196
+           (4.60.1)                                                                                                                                                                 
+           Collecting rubicon-objc<0.6.0,>=0.5.1 (from toga-cocoa~=0.5.0)                                                                                          subprocess.py:196
+             Downloading rubicon_objc-0.5.3-py3-none-any.whl.metadata (4.4 kB)                                                                                     subprocess.py:196
+           Collecting toga-core==0.5.3 (from toga-cocoa~=0.5.0)                                                                                                    subprocess.py:196
+             Downloading toga_core-0.5.3-py3-none-any.whl.metadata (4.0 kB)                                                                                        subprocess.py:196
+[13:55:20] Collecting travertino==0.5.3 (from toga-core==0.5.3->toga-cocoa~=0.5.0)                                                                                 subprocess.py:196
+             Downloading travertino-0.5.3-py3-none-any.whl.metadata (2.9 kB)                                                                                       subprocess.py:196
+           Requirement already satisfied: tzdata in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from faker) (2025.2)                            subprocess.py:196
+           Requirement already satisfied: anyio in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from httpx) (4.11.0)                             subprocess.py:196
+           Requirement already satisfied: certifi in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from httpx) (2025.11.12)                       subprocess.py:196
+           Requirement already satisfied: httpcore==1.* in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from httpx) (1.0.9)                      subprocess.py:196
+           Requirement already satisfied: idna in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from httpx) (3.11)                                subprocess.py:196
+           Requirement already satisfied: h11>=0.16 in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from httpcore==1.*->httpx) (0.16.0)          subprocess.py:196
+           Collecting iniconfig>=1.0.1 (from pytest)                                                                                                               subprocess.py:196
+             Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)                                                                                       subprocess.py:196
+           Requirement already satisfied: packaging>=22 in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from pytest) (25.0)                      subprocess.py:196
+           Collecting pluggy<2,>=1.5 (from pytest)                                                                                                                 subprocess.py:196
+             Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)                                                                                          subprocess.py:196
+           Requirement already satisfied: pygments>=2.7.2 in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from pytest) (2.19.2)                  subprocess.py:196
+           Requirement already satisfied: sniffio>=1.1 in /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages (from anyio->httpx) (1.3.1)                subprocess.py:196
+           Downloading toga_cocoa-0.5.3-py3-none-any.whl (469 kB)                                                                                                  subprocess.py:196
+           Downloading toga_core-0.5.3-py3-none-any.whl (147 kB)                                                                                                   subprocess.py:196
+           Downloading travertino-0.5.3-py3-none-any.whl (26 kB)                                                                                                   subprocess.py:196
+           Using cached std_nslog-1.0.3-py3-none-any.whl (4.8 kB)                                                                                                  subprocess.py:196
+           Downloading rubicon_objc-0.5.3-py3-none-any.whl (64 kB)                                                                                                 subprocess.py:196
+           Downloading faker-38.2.0-py3-none-any.whl (2.0 MB)                                                                                                      subprocess.py:196
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 9.7 MB/s  0:00:00                                                                                subprocess.py:196
+           Using cached pytest-9.0.1-py3-none-any.whl (373 kB)                                                                                                     subprocess.py:196
+           Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)                                                                                                      subprocess.py:196
+           Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)                                                                                                  subprocess.py:196
+           Installing collected packages: travertino, std-nslog, rubicon-objc, pluggy, iniconfig, faker, toga-core, pytest, toga-cocoa                             subprocess.py:196
+[13:55:21]                                                                                                                                                         subprocess.py:196
+           Successfully installed faker-38.2.0 iniconfig-2.3.0 pluggy-1.6.0 pytest-9.0.1 rubicon-objc-0.5.3 std-nslog-1.0.3 toga-cocoa-0.5.3 toga-core-0.5.3       subprocess.py:196
+           travertino-0.5.3                                                                                                                                                         
+           >>> Return code: 0                                                                                                                                      subprocess.py:839
+                                                                                                                                                                   subprocess.py:839
+           Installing dev requirements... done                                                                                                                            dev.py:108
+                                                                                                                                                                          dev.py:320
+           [helloworld] Starting in dev mode...                                                                                                                           dev.py:320
+                                                                                                                                                                   subprocess.py:839
+           >>> Running Command:                                                                                                                                    subprocess.py:839
+           >>>     /Users/emretaspinar/.venvs/daily/bin/python3.14 -c 'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("helloworld",        subprocess.py:839
+           run_name="__main__", alter_sys=True)'                                                                                                                                    
+           >>> Working Directory:                                                                                                                                  subprocess.py:839
+           >>>     /Users/emretaspinar                                                                                                                             subprocess.py:839
+           >>> Environment Overrides:                                                                                                                              subprocess.py:839
+           >>>                                                                                                                                                     subprocess.py:839
+           PYTHONPATH=/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld/src:/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Afl                  
+           evering/beeware-tutorial/helloworld/src/helloworld                                                                                                                       
+           >>>     PYTHONUNBUFFERED=1                                                                                                                              subprocess.py:839
+           >>>     PYTHONDEVMODE=1                                                                                                                                 subprocess.py:839
+           >>>     PYTHONUTF8=1                                                                                                                                    subprocess.py:839
+           ===========================================================================                                                                                    run.py:175
+           Traceback (most recent call last):                                                                                                                      subprocess.py:196
+             File "<string>", line 1, in <module>                                                                                                                  subprocess.py:196
+               import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("helloworld", run_name="__main__", alter_sys=True)                           subprocess.py:196
+                                                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                           subprocess.py:196
+             File "<frozen runpy>", line 226, in run_module                                                                                                        subprocess.py:196
+             File "<frozen runpy>", line 98, in _run_module_code                                                                                                   subprocess.py:196
+             File "<frozen runpy>", line 88, in _run_code                                                                                                          subprocess.py:196
+             File "/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld/src/helloworld/__main__.py", line 1, in <module>          subprocess.py:196
+               from helloworld.app import main                                                                                                                     subprocess.py:196
+             File "/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld/src/helloworld/app.py", line 11, in <module>              subprocess.py:196
+               from services import database_connection as dbc                                                                                                     subprocess.py:196
+             File "/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/helloworld/src/helloworld/services/database_connection.py", line 7   subprocess.py:196
+               sql_query_template['get_dcr_role'] = f"SELECT Role FROM DCRUsers WHERE                                                                              subprocess.py:196
+                                                    ^                                                                                                              subprocess.py:196
+           SyntaxError: unterminated f-string literal (detected at line 7)                                                                                         subprocess.py:196
+                                                                                                                                                                      __main__.py:42
+           Problem running app helloworld.                                                                                                                            __main__.py:43
+           Saving log... started                                                                                                                                      console.py:443
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages/briefcase/__main__.py:27 in main                                                                                   │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ ❱ 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────╮                                                      │
+│ │       command = <briefcase.platforms.macOS.app.macOSAppDevCommand object at 0x107b38ec0>                                │                                                      │
+│ │       console = <briefcase.console.Console object at 0x1079eb4d0>                                                       │                                                      │
+│ │             e = BriefcaseCommandError('Problem running app helloworld.')                                                │                                                      │
+│ │ extra_cmdline = []                                                                                                      │                                                      │
+│ │       options = {'appname': None, 'update_requirements': False, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                                      │
+│ │     overrides = {}                                                                                                      │                                                      │
+│ │        result = 200                                                                                                     │                                                      │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                      │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages/briefcase/commands/dev.py:321 in __call__                                                                          │
+│                                                                                                                                                                                  │
+│   318 │   │   │   │   │   )                                                                                                                                                      │
+│   319 │   │   │   │   else:                                                                                                                                                      │
+│   320 │   │   │   │   │   self.console.info("Starting in dev mode...", prefix=app.app_name)                                                                                      │
+│ ❱ 321 │   │   │   │   return self.run_dev_app(                                                                                                                                   │
+│   322 │   │   │   │   │   app,                                                                                                                                                   │
+│   323 │   │   │   │   │   env=self.get_environment(app),                                                                                                                         │
+│   324 │   │   │   │   │   venv=venv,                                                                                                                                             │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────── locals ─────────────────────────────────────────────────╮                                                                     │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                          │                                                                     │
+│ │             appname = None                                                                               │                                                                     │
+│ │             options = {}                                                                                 │                                                                     │
+│ │         passthrough = []                                                                                 │                                                                     │
+│ │             run_app = True                                                                               │                                                                     │
+│ │                self = <briefcase.platforms.macOS.app.macOSAppDevCommand object at 0x107b38ec0>           │                                                                     │
+│ │           test_mode = False                                                                              │                                                                     │
+│ │ update_requirements = False                                                                              │                                                                     │
+│ │                venv = <briefcase.integrations.virtual_environment.NoOpVenvContext object at 0x107b3a3c0> │                                                                     │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                     │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages/briefcase/commands/dev.py:190 in run_dev_app                                                                       │
+│                                                                                                                                                                                  │
+│   187 │   │   │   )                                                                                                                                                              │
+│   188 │   │   │                                                                                                                                                                  │
+│   189 │   │   │   # Start streaming logs for the app.                                                                                                                            │
+│ ❱ 190 │   │   │   self._stream_app_logs(                                                                                                                                         │
+│   191 │   │   │   │   app,                                                                                                                                                       │
+│   192 │   │   │   │   popen=app_popen,                                                                                                                                           │
+│   193 │   │   │   │   clean_output=False,                                                                                                                                        │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────────────────╮               │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                                                                                        │               │
+│ │   app_popen = <Popen: returncode: 1 args: ['/Users/emretaspinar/.venvs/daily/bin/python3.1...>                                                                 │               │
+│ │     cmdline = ['/Users/emretaspinar/.venvs/daily/bin/python3.14', '-c', 'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("hellowor'+41] │               │
+│ │         env = {                                                                                                                                                │               │
+│ │               │   'PYTHONPATH': '/Users/emretaspinar/Desktop/Cloud/Cloud-F-rste-Aflevering/beeware-tutorial/hello'+110,                                        │               │
+│ │               │   'PYTHONUNBUFFERED': '1',                                                                                                                     │               │
+│ │               │   'PYTHONDEVMODE': '1',                                                                                                                        │               │
+│ │               │   'PYTHONUTF8': '1'                                                                                                                            │               │
+│ │               }                                                                                                                                                │               │
+│ │     env_key = 'PYTHONUTF8'                                                                                                                                     │               │
+│ │   env_value = '1'                                                                                                                                              │               │
+│ │ main_module = 'helloworld'                                                                                                                                     │               │
+│ │     options = {}                                                                                                                                               │               │
+│ │ passthrough = []                                                                                                                                               │               │
+│ │        self = <briefcase.platforms.macOS.app.macOSAppDevCommand object at 0x107b38ec0>                                                                         │               │
+│ │        venv = <briefcase.integrations.virtual_environment.NoOpVenvContext object at 0x107b3a3c0>                                                               │               │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯               │
+│                                                                                                                                                                                  │
+│ /Users/emretaspinar/.venvs/daily/lib/python3.14/site-packages/briefcase/commands/run.py:206 in _stream_app_logs                                                                  │
+│                                                                                                                                                                                  │
+│   203 │   │   │   │   # If we're monitoring an actual app (not just a log stream),                                                                                               │
+│   204 │   │   │   │   # and the app didn't exit cleanly, surface the error to the user.                                                                                          │
+│   205 │   │   │   │   if popen.poll() != 0:                                                                                                                                      │
+│ ❱ 206 │   │   │   │   │   raise BriefcaseCommandError(f"Problem running app {app.app_name}.")                                                                                    │
+│   207 │   │                                                                                                                                                                      │
+│   208 │   │   except KeyboardInterrupt:                                                                                                                                          │
+│   209 │   │   │   pass  # Catch CTRL-C to exit normally                                                                                                                          │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────── locals ─────────────────────────────────────────────╮                                                                              │
+│ │          app = <com.example.helloworld v0.0.1 AppConfig>                                        │                                                                              │
+│ │ clean_filter = None                                                                             │                                                                              │
+│ │ clean_output = False                                                                            │                                                                              │
+│ │   log_filter = <briefcase.commands.run.LogFilter object at 0x107b3b0e0>                         │                                                                              │
+│ │   log_stream = False                                                                            │                                                                              │
+│ │        popen = <Popen: returncode: 1 args: ['/Users/emretaspinar/.venvs/daily/bin/python3.1...> │                                                                              │
+│ │         self = <briefcase.platforms.macOS.app.macOSAppDevCommand object at 0x107b38ec0>         │                                                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Problem running app helloworld.
