@@ -7,14 +7,13 @@ import httpx
 
 from toga.style.pack import COLUMN, ROW
 from toga.style import Pack
-from services.dcr_active_repository import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
-from services import database_connection as dbc
+from services.dcr_active_repository_group3 import check_login_from_dcr, DcrActiveRepository, EventsFilter, DcrUser
+from services import database_connection_group3 as dbc
 
 class CloudApp(toga.App):
     graph_id = 2004854
     dcr_ar = None
     current_instance_id = None
-    user = None
 
     def startup(self):
        
@@ -151,12 +150,15 @@ class CloudApp(toga.App):
         instances_box = toga.Box(style=Pack(direction=COLUMN))
 
         self.instances = {}
-        dcr_ar_instances = await self.dcr_ar.get_instances(self.graph_id)
-        # Only add instances that exist in the database
+        db_instances = dbc.get_all_instances() or []
 
-        db_instances = dbc.get_all_instances()
         db_instance_ids = {str(row[0]) for row in db_instances}
-        my_instances = [str(row[0]) for row in dbc.get_instances_for_user(self.username.email)]
+
+        self.my_instances = {
+        str(row[0]) for row in dbc.get_instances_for_user(self.username.email) or []
+        }
+
+        dcr_ar_instances = await self.dcr_ar.get_instances(self.graph_id)
         
         for inst_id, inst_name in dcr_ar_instances.items():
             if inst_id in db_instance_ids:
@@ -165,12 +167,14 @@ class CloudApp(toga.App):
         for inst_id, inst_name in self.instances.items():
             row_box = toga.Box(style=Pack(direction=ROW))
 
+            is_mine = inst_id in self.my_instances
+
             instance_button = toga.Button(
                 inst_name,
                 on_press=self.show_instance,
                 style=Pack(padding=5),
                 id=inst_id,
-                enabled=inst_id in my_instances  # Only enable if in my_instances
+                enabled=is_mine
             )
             row_box.add(instance_button)
 
@@ -179,6 +183,7 @@ class CloudApp(toga.App):
                 on_press=self.delete_instance_by_id,
                 style=Pack(padding=5, color="red"),
                 id=f"X{inst_id}",
+                enabled=is_mine,
             )
             row_box.add(del_button)
 
@@ -191,10 +196,10 @@ class CloudApp(toga.App):
     
     async def delete_all_instances(self, widget):
         print("[i] Delete All Instances")
-        # Only delete instances for the logged in user that are valid
-        my_instances = dbc.get_instances_for_user(self.username.email)
+        my_instances = dbc.get_instances_for_user(self.username.email) or []
         for instance_id, is_valid in my_instances:
-            if is_valid: # Only delete valid instances
+            instance_id = str(instance_id)
+            if is_valid:
                 await self.dcr_ar.delete_instance(self.graph_id, instance_id)
                 dbc.delete_instance(instance_id)
         self.current_instance_id = None
@@ -368,6 +373,7 @@ class CloudApp(toga.App):
 
     async def execute_event(self, widget):
         print(f'[i] You want to execute event: {widget.id}!')
+
         await self.dcr_ar.execute_event(
             self.graph_id,
             self.current_instance_id,
@@ -390,7 +396,7 @@ class CloudApp(toga.App):
         self.option_container.content["Instance run"].enabled = False
         self.option_container.content["Logout"].enabled = False
 
-        self.user = None
+        self.username = None
         self.dcr_ar = None
         self.current_instance_id = None
         self.instances = {}
