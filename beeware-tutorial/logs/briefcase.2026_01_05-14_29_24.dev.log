@@ -1,0 +1,435 @@
+Date/Time:       2026-01-05 14:29:24 
+Command line:    C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Scripts\briefcase dev
+
+OS Release:      Windows 11
+OS Version:      10.0.26200
+Architecture:    AMD64
+Platform:        Windows-11-10.0.26200-SP0
+
+Python exe:      C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Scripts\python.exe
+Python version:  3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.3.25
+Target platform: windows
+Target format:   app
+
+Environment Variables:
+	ALLUSERSPROFILE=C:\ProgramData
+	APPDATA=C:\Users\namdo\AppData\Roaming
+	BUNDLED_DEBUGPY_PATH=c:\Users\namdo\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\libs\debugpy
+	CHROME_CRASHPAD_PIPE_NAME=\\.\pipe\crashpad_22384_WMWTVWSLRGICGNOH
+	COLORTERM=truecolor
+	COMMONPROGRAMFILES=C:\Program Files\Common Files
+	COMMONPROGRAMFILES(X86)=C:\Program Files (x86)\Common Files
+	COMMONPROGRAMW6432=C:\Program Files\Common Files
+	COMPUTERNAME=PHAMIX
+	COMSPEC=C:\WINDOWS\system32\cmd.exe
+	CURL_CA_BUNDLE=C:\Program Files\PostgreSQL\17\ssl\certs\ca-bundle.crt
+	DRIVERDATA=C:\Windows\System32\Drivers\DriverData
+	EFC_9720_1262719628=1
+	EFC_9720_1592913036=1
+	EFC_9720_2283032206=1
+	EFC_9720_2775293581=1
+	EFC_9720_3789132940=1
+	FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+	FPS_BROWSER_USER_PROFILE_STRING=Default
+	GDAL_DATA=C:\Program Files\PostgreSQL\17\gdal-data
+	GIT_ASKPASS=********************
+	HOMEDRIVE=C:
+	HOMEPATH=\Users\namdo
+	IGCCSVC_DB=AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiGrVTrkxQ0m5JJ8mxn7eGAQAAAACAAAAAAAQZgAAAAEAACAAAADHHyqYlArflOs3OJ2r4IyoUKggM9k1OULz8lNTr9XPEAAAAAAOgAAAAAIAACAAAABafTjbDjOz/CzC2nJLZ73Alv4uWlEzTxQt/l9cMo2oCWAAAADfyYS3X7yk+DWW9lf7DZVuGjnV7lYAUNXe2wIOEMXnQOu1VdwddfbuPBE+/3KRlyPT6sfeArYUtxUMEmtjd1kSgWtan/qikwzlJQK9eruOXaKgY5eryOGabd+JZNyj8D5AAAAArM4Y6kR+ynpzEb1AoKGtlwkVX4yB/yUJgCNJA3kIGN7+T9532HcZTZu89u1EDMgltbrB8O9ys4Ic5rfH0wGeeQ==
+	LANG=en_US.UTF-8
+	LOCALAPPDATA=C:\Users\namdo\AppData\Local
+	LOGONSERVER=\\PHAMIX
+	NUMBER_OF_PROCESSORS=8
+	OCULUSBASE=C:\Program Files\Oculus\
+	ONEDRIVE=C:\Users\namdo\OneDrive
+	OPENSSL_CONF=C:\Program Files\PostgreSQL\psqlODBC\etc\openssl.cnf
+	OS=Windows_NT
+	PATH=C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Scripts;c:\Users\namdo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\namdo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Oculus\Support\oculus-runtime;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\namdo\AppData\Local\Programs\Python\Launcher\;C:\Users\namdo\AppData\Local\Microsoft\WindowsApps;C:\Users\namdo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\namdo\.dotnet\tools;C:\Users\namdo\AppData\Local\GitHubDesktop\bin;c:\Users\namdo\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\scripts\noConfigScripts
+	PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+	POSTGIS_ENABLE_OUTDB_RASTERS=1
+	POSTGIS_GDAL_ENABLED_DRIVERS=GTiff PNG JPEG GIF XYZ DTED USGSDEM AAIGrid
+	PROCESSOR_ARCHITECTURE=AMD64
+	PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+	PROCESSOR_LEVEL=6
+	PROCESSOR_REVISION=8c01
+	PROGRAMDATA=C:\ProgramData
+	PROGRAMFILES=C:\Program Files
+	PROGRAMFILES(X86)=C:\Program Files (x86)
+	PROGRAMW6432=C:\Program Files
+	PROJ_LIB=C:\Program Files\PostgreSQL\17\share\contrib\postgis-3.5\proj
+	PSMODULEPATH=C:\Users\namdo\OneDrive - MarcusHo\Dokumenter\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+	PUBLIC=C:\Users\Public
+	PYDEVD_DISABLE_FILE_VALIDATION=1
+	PYTHONSTARTUP=c:\Users\namdo\AppData\Roaming\Code\User\workspaceStorage\fd434b4c4e0012ab766bca95878848b6\ms-python.python\pythonrc.py
+	PYTHONUSERBASE=C:\Users\namdo\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages
+	PYTHON_BASIC_REPL=1
+	SESSIONNAME=Console
+	SYSTEMDRIVE=C:
+	SYSTEMROOT=C:\WINDOWS
+	TEMP=C:\Users\namdo\AppData\Local\Temp
+	TERM_PROGRAM=vscode
+	TERM_PROGRAM_VERSION=1.107.0
+	TMP=C:\Users\namdo\AppData\Local\Temp
+	USERDOMAIN=PHAMIX
+	USERDOMAIN_ROAMINGPROFILE=PHAMIX
+	USERNAME=namdo
+	USERPROFILE=C:\Users\namdo
+	VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+	VIRTUAL_ENV=C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv
+	VIRTUAL_ENV_PROMPT=beeware-venv
+	VSCODE_DEBUGPY_ADAPTER_ENDPOINTS=c:\Users\namdo\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\.noConfigDebugAdapterEndpoints\endpoint-99d1acffd1899bb1.txt
+	VSCODE_GIT_ASKPASS_EXTRA_ARGS=********************
+	VSCODE_GIT_ASKPASS_MAIN=********************
+	VSCODE_GIT_ASKPASS_NODE=********************
+	VSCODE_GIT_IPC_HANDLE=\\.\pipe\vscode-git-aac92c1713-sock
+	VSCODE_INJECTION=1
+	VSCODE_PYTHON_AUTOACTIVATE_GUARD=1
+	WINDIR=C:\WINDOWS
+	ZES_ENABLE_SYSMAN=1
+	_OLD_VIRTUAL_PATH=c:\Users\namdo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\namdo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Oculus\Support\oculus-runtime;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\namdo\AppData\Local\Programs\Python\Launcher\;C:\Users\namdo\AppData\Local\Microsoft\WindowsApps;C:\Users\namdo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\namdo\.dotnet\tools;C:\Users\namdo\AppData\Local\GitHubDesktop\bin;c:\Users\namdo\.vscode\extensions\ms-python.debugpy-2025.18.0-win32-x64\bundled\scripts\noConfigScripts
+
+pyproject.toml:
+# This project was generated with 0.3.25 using template: https://github.com/beeware/briefcase-template @ v0.3.25
+[tool.briefcase]
+project_name = "Hello World"
+bundle = "com.example"
+version = "0.0.1"
+url = "https://example.com/helloworld"
+license.file = "LICENSE"
+author = "Jane Developer"
+author_email = "snc178@alumni.ku.dk"
+
+[tool.briefcase.app.helloworld]
+formal_name = "Hello World"
+description = "My first application"
+long_description = """More details about the app should go here.
+"""
+sources = [
+    "src/helloworld",
+    "src/helloworld/services",
+]
+test_sources = [
+    "tests",
+]
+
+requires = [
+    "faker",
+    "httpx",
+    "mysql-connector-python",
+]
+test_requires = [
+    "pytest",
+]
+
+[tool.briefcase.app.helloworld.macOS]
+universal_build = true
+requires = [
+    "toga-cocoa~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.linux]
+requires = [
+    "toga-gtk~=0.5.0",
+    # PyGObject 3.52.1 enforces a requirement on libgirepository-2.0-dev. This library
+    # isn't available on Debian 12/Ubuntu 22.04. If you don't need to support those (or
+    # older) releases, you can remove this version pin. See beeware/toga#3143.
+    "pygobject < 3.52.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.debian]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "libcairo2-dev",
+    # One of the following two packages are needed to compile PyGObject wheel. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository1.0-dev",
+    # "libgirepository-2.0-dev",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK and its GI bindings
+    "gir1.2-gtk-3.0",
+    # One of the following two packages are needed to use PyGObject at runtime. If you
+    # remove the pygobject pin in the requires list, you should also change to the
+    # version 2.0 of the girepository library. See beeware/toga#3143.
+    "libgirepository-1.0-1",
+    # "libgirepository-2.0-0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # Note: Debian 11 requires gir1.2-webkit2-4.0 instead
+    # "gir1.2-webkit2-4.1",
+]
+
+[tool.briefcase.app.helloworld.linux.system.rhel]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.helloworld.linux.system.suse]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to support Python bindings to GTK
+    "gobject-introspection", "typelib(Gtk) = 3.0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "libwebkit2gtk3", "typelib(WebKit2)",
+]
+
+[tool.briefcase.app.helloworld.linux.system.arch]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection",
+    # Runtime dependencies that need to exist so that the
+    # Arch package passes final validation.
+    # Needed to provide GTK
+    "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to provide PyGObject bindings
+    "gobject-introspection-runtime",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.appimage]
+manylinux = "manylinux_2_28"
+
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-gobject-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+    # Needed to provide GTK
+    "gtk3-devel",
+    # Dependencies that GTK looks for at runtime, that need to be
+    # in the build environment to be picked up by linuxdeploy
+    "libcanberra-gtk3",
+    "PackageKit-gtk3-module",
+    "gvfs-client",
+]
+
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
+
+[tool.briefcase.app.helloworld.linux.flatpak]
+flatpak_runtime = "org.gnome.Platform"
+flatpak_runtime_version = "48"
+flatpak_sdk = "org.gnome.Sdk"
+
+[tool.briefcase.app.helloworld.windows]
+requires = [
+    "toga-winforms~=0.5.0",
+]
+
+# Mobile deployments
+[tool.briefcase.app.helloworld.iOS]
+requires = [
+    "toga-iOS~=0.5.0",
+    "std-nslog~=1.0.3",
+]
+
+[tool.briefcase.app.helloworld.android]
+requires = [
+    "toga-android~=0.5.0",
+]
+
+base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
+
+build_gradle_dependencies = [
+    "com.google.android.material:material:1.12.0",
+    # Needed for DetailedList
+    # "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+    # Needed for MapView
+    # "org.osmdroid:osmdroid-android:6.1.20",
+]
+
+# Web deployments
+[tool.briefcase.app.helloworld.web]
+requires = [
+    "toga-web~=0.5.0",
+]
+style_framework = "Shoelace v2.3"
+
+Briefcase Log:
+[14:29:19]                                                                                                                                                                dev.py:248
+           [helloworld] Starting in dev mode...                                                                                                                           dev.py:248
+                                                                                                                                                                   subprocess.py:838
+           >>> Running Command:                                                                                                                                    subprocess.py:838
+           >>>     'C:\Users\namdo\OneDrive -                                                                                                                      subprocess.py:838
+           MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Scripts\python.exe' -c 'import runpy,                             
+           sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("helloworld", run_name="__main__", alter_sys=True)'                                                             
+           >>> Working Directory:                                                                                                                                  subprocess.py:838
+           >>>     C:\Users\namdo                                                                                                                                  subprocess.py:838
+           >>> Environment Overrides:                                                                                                                              subprocess.py:838
+           >>>     PYTHONPATH=C:\Users\namdo\OneDrive -                                                                                                            subprocess.py:838
+           MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\src;C:\Users\namdo\OneDrive -                                                  
+           MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\src\helloworld                                                                 
+           >>>     PYTHONMALLOC=default                                                                                                                            subprocess.py:838
+           >>>     PYTHONUNBUFFERED=1                                                                                                                              subprocess.py:838
+           >>>     PYTHONDEVMODE=1                                                                                                                                 subprocess.py:838
+           >>>     PYTHONUTF8=1                                                                                                                                    subprocess.py:838
+           ===========================================================================                                                                                    run.py:169
+[14:29:24] Traceback (most recent call last):                                                                                                                      subprocess.py:195
+             File "<string>", line 1, in <module>                                                                                                                  subprocess.py:195
+             File "<frozen runpy>", line 226, in run_module                                                                                                        subprocess.py:195
+             File "<frozen runpy>", line 98, in _run_module_code                                                                                                   subprocess.py:195
+             File "<frozen runpy>", line 88, in _run_code                                                                                                          subprocess.py:195
+             File "C:\Users\namdo\OneDrive -                                                                                                                       subprocess.py:195
+           MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\src\helloworld\__main__.py", line 4, in <module>                               
+               main().main_loop()                                                                                                                                  subprocess.py:195
+             File "C:\Users\namdo\OneDrive -                                                                                                                       subprocess.py:195
+           MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Lib\site-packages\toga\app.py", line 457, in                      
+           main_loop                                                                                                                                                                
+               self._impl.main_loop()                                                                                                                              subprocess.py:195
+               ^^^^^^^^^^                                                                                                                                          subprocess.py:195
+           AttributeError: 'CloudApp' object has no attribute '_impl'                                                                                              subprocess.py:195
+                                                                                                                                                                      __main__.py:42
+           Problem running app helloworld.                                                                                                                            __main__.py:43
+           Saving log... started                                                                                                                                      console.py:438
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Lib\site-packages\briefcase\__main__.py:27 in m │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ ❱ 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────╮                                                      │
+│ │       command = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000002ABEA0E1310>                     │                                                      │
+│ │       console = <briefcase.console.Console object at 0x000002ABE6D854F0>                                                │                                                      │
+│ │             e = BriefcaseCommandError('Problem running app helloworld.')                                                │                                                      │
+│ │ extra_cmdline = []                                                                                                      │                                                      │
+│ │       options = {'appname': None, 'update_requirements': False, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                                      │
+│ │     overrides = {}                                                                                                      │                                                      │
+│ │        result = 200                                                                                                     │                                                      │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                      │
+│                                                                                                                                                                                  │
+│ C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Lib\site-packages\briefcase\commands\dev.py:250 │
+│                                                                                                                                                                                  │
+│   247 │   │   │   else:                                                                                                                                                          │
+│   248 │   │   │   │   self.console.info("Starting in dev mode...", prefix=app.app_name)                                                                                          │
+│   249 │   │   │   env = self.get_environment(app)                                                                                                                                │
+│ ❱ 250 │   │   │   return self.run_dev_app(                                                                                                                                       │
+│   251 │   │   │   │   app,                                                                                                                                                       │
+│   252 │   │   │   │   env,                                                                                                                                                       │
+│   253 │   │   │   │   passthrough=[] if passthrough is None else passthrough,                                                                                                    │
+│                                                                                                                                                                                  │
+│ ╭─────────────────────────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────────────────────────╮ │
+│ │                 app = <com.example.helloworld v0.0.1 AppConfig>                                                                                                              │ │
+│ │             appname = None                                                                                                                                                   │ │
+│ │      dist_info_path = WindowsPath('C:/Users/namdo/OneDrive -                                                                                                                 │ │
+│ │                       MarcusHo/Skrivebord/UNIVERSITET/CLOUD/Aflevering/Cloud-F-rste-Aflevering/beeware-tutorial/src/helloworld.dist-info')                                   │ │
+│ │                 env = {                                                                                                                                                      │ │
+│ │                       │   'PYTHONPATH': 'C:\\Users\\namdo\\OneDrive - MarcusHo\\Skrivebord\\UNIVERSITET\\CLOUD\\Aflevering\\Cloud'+170,                                      │ │
+│ │                       │   'PYTHONMALLOC': 'default',                                                                                                                         │ │
+│ │                       │   'PYTHONUNBUFFERED': '1',                                                                                                                           │ │
+│ │                       │   'PYTHONDEVMODE': '1',                                                                                                                              │ │
+│ │                       │   'PYTHONUTF8': '1'                                                                                                                                  │ │
+│ │                       }                                                                                                                                                      │ │
+│ │             options = {}                                                                                                                                                     │ │
+│ │         passthrough = []                                                                                                                                                     │ │
+│ │             run_app = True                                                                                                                                                   │ │
+│ │                self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000002ABEA0E1310>                                                                    │ │
+│ │           test_mode = False                                                                                                                                                  │ │
+│ │ update_requirements = False                                                                                                                                                  │ │
+│ ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯ │
+│                                                                                                                                                                                  │
+│ C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Lib\site-packages\briefcase\commands\dev.py:168 │
+│                                                                                                                                                                                  │
+│   165 │   │   │   )                                                                                                                                                              │
+│   166 │   │   │                                                                                                                                                                  │
+│   167 │   │   │   # Start streaming logs for the app.                                                                                                                            │
+│ ❱ 168 │   │   │   self._stream_app_logs(                                                                                                                                         │
+│   169 │   │   │   │   app,                                                                                                                                                       │
+│   170 │   │   │   │   popen=app_popen,                                                                                                                                           │
+│   171 │   │   │   │   clean_output=False,                                                                                                                                        │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────╮                                              │
+│ │         app = <com.example.helloworld v0.0.1 AppConfig>                                                                         │                                              │
+│ │   app_popen = <Popen: returncode: 1 args: ['C:\\Users\\namdo\\OneDrive - MarcusHo\\Skriveb...>                                  │                                              │
+│ │     cmdline = [                                                                                                                 │                                              │
+│ │               │   'C:\\Users\\namdo\\OneDrive - MarcusHo\\Skrivebord\\UNIVERSITET\\CLOUD\\Aflevering\\Cloud'+67,                │                                              │
+│ │               │   '-c',                                                                                                         │                                              │
+│ │               │   'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("hellowor'+41                         │                                              │
+│ │               ]                                                                                                                 │                                              │
+│ │         env = {                                                                                                                 │                                              │
+│ │               │   'PYTHONPATH': 'C:\\Users\\namdo\\OneDrive - MarcusHo\\Skrivebord\\UNIVERSITET\\CLOUD\\Aflevering\\Cloud'+170, │                                              │
+│ │               │   'PYTHONMALLOC': 'default',                                                                                    │                                              │
+│ │               │   'PYTHONUNBUFFERED': '1',                                                                                      │                                              │
+│ │               │   'PYTHONDEVMODE': '1',                                                                                         │                                              │
+│ │               │   'PYTHONUTF8': '1'                                                                                             │                                              │
+│ │               }                                                                                                                 │                                              │
+│ │ main_module = 'helloworld'                                                                                                      │                                              │
+│ │     options = {}                                                                                                                │                                              │
+│ │ passthrough = []                                                                                                                │                                              │
+│ │        self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000002ABEA0E1310>                               │                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                              │
+│                                                                                                                                                                                  │
+│ C:\Users\namdo\OneDrive - MarcusHo\Skrivebord\UNIVERSITET\CLOUD\Aflevering\Cloud-F-rste-Aflevering\beeware-tutorial\beeware-venv\Lib\site-packages\briefcase\commands\run.py:200 │
+│                                                                                                                                                                                  │
+│   197 │   │   │   │   # If we're monitoring an actual app (not just a log stream),                                                                                               │
+│   198 │   │   │   │   # and the app didn't exit cleanly, surface the error to the user.                                                                                          │
+│   199 │   │   │   │   if popen.poll() != 0:                                                                                                                                      │
+│ ❱ 200 │   │   │   │   │   raise BriefcaseCommandError(f"Problem running app {app.app_name}.")                                                                                    │
+│   201 │   │                                                                                                                                                                      │
+│   202 │   │   except KeyboardInterrupt:                                                                                                                                          │
+│   203 │   │   │   pass  # Catch CTRL-C to exit normally                                                                                                                          │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ──────────────────────────────────────────────╮                                                                           │
+│ │          app = <com.example.helloworld v0.0.1 AppConfig>                                           │                                                                           │
+│ │ clean_filter = None                                                                                │                                                                           │
+│ │ clean_output = False                                                                               │                                                                           │
+│ │   log_filter = <briefcase.commands.run.LogFilter object at 0x000002ABEA1417C0>                     │                                                                           │
+│ │   log_stream = False                                                                               │                                                                           │
+│ │        popen = <Popen: returncode: 1 args: ['C:\\Users\\namdo\\OneDrive - MarcusHo\\Skriveb...>    │                                                                           │
+│ │         self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000002ABEA0E1310> │                                                                           │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                           │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Problem running app helloworld.

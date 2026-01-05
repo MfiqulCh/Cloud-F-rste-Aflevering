@@ -2,8 +2,10 @@
 My first application
 """
 
+import asyncio
 import toga
 import httpx
+import time
 
 from toga.constants import COLUMN, ROW
 from toga.style import Pack
@@ -95,7 +97,31 @@ class CloudApp(toga.App):
         if widget.current_tab.text == "All instances":
             await self.show_instances_box()
 
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs) # Tells Toga to set up the window engine
+        self.is_locked = False      # Creates the attribute so it exists
+        self.failed_attempts = 0
+        
+
+        
+    async def lockout_time_handler(self):
+        self.is_locked = True
+        punishment_time = 100
+        print(f"[x] Too many failed login attempts! Locking out for {punishment_time} seconds.")
+        
+        await asyncio.sleep(punishment_time)
+        
+        self.is_locked = False
+        self.failed_attempts = 0
+        print("[i] You can now try to login again.")
+            
+
     async def login_handler(self, widget):
+        if self.is_locked:
+            print("[x] Currently locked out due to too many failed login attempts. Please wait.")
+            return
+        
         print(f"[i] Login Detected With Username: {self.username_input.value}")
 
         connected = await check_login_from_dcr(
@@ -120,6 +146,9 @@ class CloudApp(toga.App):
             self.option_container.current_tab = "All instances"
             self.option_container.content["Login"].enabled = False
         else:
+            self.failed_attempts += 1
+            if self.failed_attempts >= 3:
+                await self.lockout_time_handler()
             print("[x] Login failed try again!")
             
 

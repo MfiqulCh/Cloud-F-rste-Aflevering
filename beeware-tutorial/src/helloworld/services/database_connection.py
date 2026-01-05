@@ -1,9 +1,6 @@
 import mysql.connector
-<<<<<<< HEAD:beeware-tutorial/helloworld/src/helloworld/services/database_connection.py
-=======
 from mysql.connector import connect
 import ssl 
->>>>>>> 029d8dba189a6cf6301b7aa45f91d3b0d0a5e3c8:beeware-tutorial/src/helloworld/services/database_connection.py
 
 db_password = 'Thisthepassword3'
 
