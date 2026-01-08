@@ -17,6 +17,7 @@ sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %
 sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserInstances WHERE InstanceID = %(id)s"
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 sql_query_template['get_instance_valid'] = "SELECT Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s AND Instances.InstanceID = %(instance_id)s"
+sql_query_template['check_user_existing'] = "SELECT COUNT(*) FROM DCRUsers WHERE Email = %(email)s"
 
 def db_connect():
     from pathlib import Path
@@ -130,3 +131,24 @@ def get_instance_valid(email, instance_id):
     except Exception as ex:
         print(f'[x] error get_instance_valid! {ex}')
         return None
+    
+    
+def check_user_existing(email):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute("SELECT COUNT(*) FROM DCRUsers WHERE Email = %(email)s", {'email':email})
+        
+        query_row_result = cursor.fetchone()
+        
+        counter_existing_user = query_row_result[0] if query_row_result else 0
+        
+        cursor.close()
+        cnx.close()
+        if counter_existing_user>0:
+            return True
+        else:
+            return False
+    except Exception as ex:
+        print(f'[x] error check_user_existing! {ex}')
+        return False
