@@ -103,12 +103,13 @@ class CloudApp(toga.App):
         self.is_locked = False      # Creates the attribute so it exists
         self.failed_attempts = 0
         self.failed_accounts = {}
+        self.user_locked_status = {}
         
 
         
     async def lockout_time_handler(self):
         self.is_locked = True
-        punishment_time = 100
+        punishment_time = 10
         print(f"[x] Too many failed login attempts! Locking out for {punishment_time} seconds.")
         
         await asyncio.sleep(punishment_time)
@@ -123,11 +124,11 @@ class CloudApp(toga.App):
             print("[x] Currently locked out due to too many failed login attempts. Please wait.")
             return
         
-        if self.failed_accounts.get(self.username_input.value):
-            print("[x] This account is temporarily locked out due to too many failed login attempts.")
+        if self.user_locked_status.get(self.username_input.value):
+            print(f"[x] {self.username_input.value} is temporarily locked out due to too many failed login attempts.")
             return
         
-        print (f"[i] Login attempts left : {self.username_input.value}")
+        print (f"{self.username_input.value} Login attempts left : {3 - self.failed_attempts}")
         
         
         # Assignment 2
@@ -159,14 +160,18 @@ class CloudApp(toga.App):
                 print(f"[x] Failed login attempts for {self.username_input.value}. Attempts : {counter} / 3")
                 
                 if counter >= 3:
-                    print(f"[x] Too many failed login attempts for {self.username_input.value}. Locking out for 100 seconds.")
+                    print(f"[x] Too many failed login attempts for {self.username_input.value}. Locking out for 10 seconds.")
                     await self.lockout_time_handler()
-                    self.failed_accounts.pop(self.username_input.value)
+                    self.failed_accounts(self.username.input.value) == 0
+                else: 
+                    print(f"{self.username_input.value} got {3-counter} attempts remaining!")
             else:
                 self.failed_attempts += 1
+                print (f"{self.username.input.value} Uknown account. Login attempts left : {3 - self.failed_attempts}")
                 if self.failed_attempts >= 3:
                     await self.lockout_time_handler()
-                print("[x] Login failed try again!")
+                else:
+                    print(f"{self.username_input.value} got {3-counter} attempts remaining!")
             
 
     async def show_instances_box(self):
