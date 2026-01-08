@@ -102,6 +102,7 @@ class CloudApp(toga.App):
         super().__init__(**kwargs) # Tells Toga to set up the window engine
         self.is_locked = False      # Creates the attribute so it exists
         self.failed_attempts = 0
+        self.failed_accounts = {}
         
 
         
@@ -122,12 +123,13 @@ class CloudApp(toga.App):
             print("[x] Currently locked out due to too many failed login attempts. Please wait.")
             return
         
-        print(f"[i] Login Detected With Username: {self.username_input.value}")
-
-        connected = await check_login_from_dcr(
-            self.username_input.value, 
-            self.password_input.value
-        )
+        if self.failed_accounts.get(self.username_input.value):
+            print("[x] This account is temporarily locked out due to too many failed login attempts.")
+            return
+        
+        print (f"[i] Login attempts left : {self.username_input.value}")
+        
+        
         # Assignment 2
         connected = await check_login_from_dcr(self.username_input.value, self.password_input.value)
         if connected:
@@ -136,6 +138,9 @@ class CloudApp(toga.App):
             print(f'[i] Role: {self.user.role}')
 
         if connected:
+            self.failed_attempts = 0
+            print("[i] Login successful!")
+            
             self.username = DcrUser(self.username_input.value, self.password_input.value)
             self.dcr_ar = DcrActiveRepository(self.username)
 
@@ -146,10 +151,22 @@ class CloudApp(toga.App):
             self.option_container.current_tab = "All instances"
             self.option_container.content["Login"].enabled = False
         else:
-            self.failed_attempts += 1
-            if self.failed_attempts >= 3:
-                await self.lockout_time_handler()
-            print("[x] Login failed try again!")
+            user_existing = dbc.check_user_existing(self.username_input.value)
+            
+            if user_existing:
+                counter = self.failed_accounts.get(self.username_input.value, 0) + 1
+                self.failed_accounts[self.username_input.value] = counter
+                print(f"[x] Failed login attempts for {self.username_input.value}. Attempts : {counter} / 3")
+                
+                if counter >= 3:
+                    print(f"[x] Too many failed login attempts for {self.username_input.value}. Locking out for 100 seconds.")
+                    await self.lockout_time_handler()
+                    self.failed_accounts.pop(self.username_input.value)
+            else:
+                self.failed_attempts += 1
+                if self.failed_attempts >= 3:
+                    await self.lockout_time_handler()
+                print("[x] Login failed try again!")
             
 
     async def show_instances_box(self):
