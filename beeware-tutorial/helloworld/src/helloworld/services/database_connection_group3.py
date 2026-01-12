@@ -45,6 +45,11 @@ VALUES (%(id)s, 1, CURRENT_TIMESTAMP)
 ON DUPLICATE KEY UPDATE AttemptCount = AttemptCount + 1, LastAttemptTime = CURRENT_TIMESTAMP
 """
 sql_query_template['reset_login_attempts'] = "DELETE FROM LoginAttempts WHERE Identifier = %(id)s"
+sql_query_template['get_security_status'] = """
+    SELECT AttemptCount, 
+    TIMESTAMPDIFF(SECOND, LastAttemptTime, CURRENT_TIMESTAMP) as seconds_passed
+    FROM LoginAttempts WHERE Identifier = %(id)s
+"""
 
 def db_connect():
     from pathlib import Path
@@ -161,12 +166,7 @@ def get_security_status(identifier):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        query = """
-            SELECT AttemptCount, 
-            TIMESTAMPDIFF(SECOND, LastAttemptTime, CURRENT_TIMESTAMP) as seconds_passed
-            FROM LoginAttempts WHERE Identifier = %(id)s
-        """
-        cursor.execute(query, {'id': identifier})
+        cursor.execute(sql_query_template['get_security_status'], {'id': identifier})
         result = cursor.fetchone()
         cursor.close()
         cnx.close()
