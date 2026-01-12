@@ -50,7 +50,10 @@ class CloudApp(toga.App):
 
        #All Instances Box
        self.all_instances_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
-
+       
+       #Security Logs Box
+       self.security_logs_table = toga.Table(headings =['Time', 'User', 'Status'], style = Pack(direction=COLUMN, flex=1))
+    
 
        #Instance Box
        self.instance_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
@@ -59,7 +62,7 @@ class CloudApp(toga.App):
                "Select an instance from the All Instances or Create new!", style=Pack(padding=5),
            )
        )
-
+        
        #Logout Box
        logout_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
        
@@ -76,6 +79,7 @@ class CloudApp(toga.App):
                toga.OptionItem("Login", login_box),
                toga.OptionItem("All instances", self.all_instances_box),
                toga.OptionItem("Instance run", self.instance_box),
+               toga.OptionItem("Security Logs", self.security_logs_table),
                toga.OptionItem("Logout", logout_box),
                ],
             on_select = self.option_item_changed,
@@ -89,6 +93,7 @@ class CloudApp(toga.App):
        self.option_container.content["Logout"].enabled = False
        self.option_container.content["All instances"].enabled = False
        self.option_container.content["Instance run"].enabled = False
+       self.option_container.content["Security Logs"].enabled = False
 
        self.main_window.show()
     
@@ -96,6 +101,21 @@ class CloudApp(toga.App):
         print('[i] You Have Selected Another Option Item!')
         if widget.current_tab.text == "All instances":
             await self.show_instances_box()
+        elif widget.current_tab.text == "Security Logs":
+            await self.show_security_logs_box()
+            
+    async def show_security_logs_box(self):
+        self.security_logs_table.data.clear()
+        
+        logs = dbc.get_security_logs()
+        
+        if logs:
+            for log in logs:
+                attempt_time = log[0]
+                email = log[1]
+                status = log[2]
+                
+                self.security_logs_table.data.append([attempt_time, email, status])
 
 
     def __init__(self, **kwargs):
@@ -107,40 +127,60 @@ class CloudApp(toga.App):
         
 
         
-    async def lockout_time_handler(self):
-        self.user_locked_status[self.username_input.value] = True
-        punishment_time = 100
-        print(f"[x] Too many failed login attempts! Locking out for {punishment_time} seconds.")
+    # async def lockout_time_handler(self):
         
-        await asyncio.sleep(punishment_time)
+    #     punishment_time = 10
         
-        self.user_locked_status[self.username_input.value] = False
-        self.failed_attempts [self.username_input.value] = 0
-        print(f"[i] {self.username_input.value} can now try to login again.")
+    #     if self.username_input.value:
+    #         self.user_locked_status[self.username_input.value] = True
+    #         print(f"[x] Too many failed login attempts! Locking out for {punishment_time} seconds.")
+        
+    #     else:
+    #         self.user_locked_status[self.username_input.value] = False
+    #         self.failed_attempts [self.username_input.value] = 0
+    #         print(f"[i] {self.username_input.value} can now try to login again.")
+            
+    #     await asyncio.sleep(punishment_time)
+        
+    #     if self.username_input.value:
+    #         self.user_locked_status[self.username_input.value] = False
+    #         self.failed_attempts [self.username_input.value] = 0
+    #     else:
+    #         self.is_locked = False
+    #         self.failed_attempts = 0
+    #         print(f"[i] {self.username_input.value} can now try to login again.")
             
 
     async def login_handler(self, widget):
+        
+        punishment_time = 10
+        db_failed_count = await asyncio.to_thread(dbc.get_failed_count, self.username_input.value)
+        seconds_since_last_failed = await asyncio.to_thread(dbc.get_seconds_since_last_failed_attempt, self.username_input.value)
+        
+        
+        
+        if db_failed_count >= 3 and seconds_since_last_failed < punishment_time:
+            wait_time = punishment_time - seconds_since_last_failed
+            print(f"[x] {self.username_input.value} is temporarily locked out due to too many failed login attempts.")
+            print(f"[x] Please wait {wait_time} seconds before trying again.")
+            return
+        
+        
         if self.is_locked:
             print("[x] Currently locked out due to too many failed login attempts. Please wait.")
             return
-        
-        if self.user_locked_status.get(self.username_input.value):
-            print(f"[x] {self.username_input.value} is temporarily locked out due to too many failed login attempts.")
-            return
-        
-        print (f"{self.username_input.value} is not registered. Login attempts left : {3 - self.failed_attempts}")
-        
+
+        print(f"[i] Trying login for {self.username_input.value}. Cloud attempts used: {db_failed_count}/3")
         
         # Assignment 2
         connected = await check_login_from_dcr(self.username_input.value, self.password_input.value)
         if connected:
+            self.failed_attempts = 0
+            print("[i] Login successful!")
             self.user = DcrUser(self.username_input.value,self.password_input.value)
             self.user.role = dbc.get_dcr_role(email=self.user.email)
             print(f'[i] Role: {self.user.role}')
 
-        if connected:
-            self.failed_attempts = 0
-            print("[i] Login successful!")
             
             self.username = DcrUser(self.username_input.value, self.password_input.value)
             self.dcr_ar = DcrActiveRepository(self.username)
@@ -152,27 +192,34 @@ class CloudApp(toga.App):
             self.option_container.current_tab = "All instances"
             self.option_container.content["Login"].enabled = False
         else:
-            user_existing = dbc.check_user_existing(self.username_input.value)
+            await asyncio.to_thread(dbc.log_failed_attempt, self.username_input.value)
+            new_count = await asyncio.to_thread(dbc.get_failed_count, self.username_input.value)
+            print (f"[x] Login failed! Attempt {new_count} / 3")
+        
             
-            if user_existing:
-                counter = self.failed_accounts.get(self.username_input.value, 0) + 1
-                self.failed_accounts[self.username_input.value] = counter
-                print(f"[x] Failed login attempts for {self.username_input.value}. Attempts : {counter} / 3")
+            
+            if new_count >= 3:
+                asyncio.create_task(self.lockout_time_handler())
+            
+            # if user_existing:
+            #     counter = self.failed_accounts.get(self.username_input.value, 0) + 1
+            #     self.failed_accounts[self.username_input.value] = counter
+            #     print(f"[x] Failed login attempts for {self.username_input.value}. Attempts : {counter} / 3")
                 
-                if counter >= 3:
-                    print(f"[x] Too many failed login attempts for {self.username_input.value}. Locking out for 10 seconds.")
-                    current_user = self.username_input.value
-                    asyncio.create_task(self.lockout_time_handler())
+            #     if counter >= 3:
+            #         print(f"[x] Too many failed login attempts for {self.username_input.value}. Locking out for 10 seconds.")
+            #         current_user = self.username_input.value
+            #         asyncio.create_task(self.lockout_time_handler())
                     
-                    self.failed_accounts[current_user] = 0
-                # else: 
-                    # print(f"{self.username_input.value} got {3-counter} attempts remaining!")
-            else:
-                self.failed_attempts += 1
-                if self.failed_attempts >= 3:
-                    await self.lockout_time_handler()
-                # else:
-                    # print(f"{self.username_input.value} got {3-counter} attempts remaining!")
+            #         self.failed_accounts[current_user] = 0
+            #     # else: 
+            #         # print(f"{self.username_input.value} got {3-counter} attempts remaining!")
+            # else:
+            #     self.failed_attempts += 1
+            #     if self.failed_attempts >= 3:
+            #         await self.lockout_time_handler()
+            #     # else:
+            #         # print(f"{self.username_input.value} got {3-counter} attempts remaining!")
             
 
     async def show_instances_box(self):

@@ -18,6 +18,9 @@ sql_query_template['delete_instance_from_user_instance'] = "DELETE FROM UserInst
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
 sql_query_template['get_instance_valid'] = "SELECT Instances.IsInValidState FROM Instances INNER JOIN UserSimulations ON Instances.InstanceID = UserSimulations.InstanceID WHERE UserSimulations.Email = %(email)s AND Instances.InstanceID = %(instance_id)s"
 sql_query_template['check_user_existing'] = "SELECT COUNT(*) FROM DCRUsers WHERE Email = %(email)s"
+sql_query_template['log_failed_attempt'] = "INSERT INTO SecurityLogs (Username, Status) VALUES (%(email)s, 'FAILED')"
+sql_query_template['get_failed_count'] = """SELECT COUNT(*) FROM SecurityLogs WHERE Username = %(email)s AND Timestamp >= NOW() - INTERVAL 10 MINUTE"""
+sql_query_template['get_last_failed_attempt_time'] = """SELECT TIMESTAMPDIFF(SECOND, MAX(Timestamp), NOW()) FROM SecurityLogs WHERE Username = %(email)s"""
 
 def db_connect():
     from pathlib import Path
@@ -152,3 +155,41 @@ def check_user_existing(email):
     except Exception as ex:
         print(f'[x] error check_user_existing! {ex}')
         return False
+    
+def log_failed_attempt(email):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['log_failed_attempt'], {'email':email})
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    except Exception as ex:
+        print(f'[x] error log_failed_attempt! {ex}')
+
+def get_failed_count(email):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['get_failed_count'], {'email':email})
+        query_result = cursor.fetchone()[0]
+        cursor.close()
+        cnx.close()
+        return query_result
+    except Exception as ex:
+        print(f'[x] error get_failed_count! {ex}')
+        return 0
+
+def get_seconds_since_last_failed_attempt(email):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['get_last_failed_attempt_time'], {'email':email})
+        query_result = cursor.fetchone()[0]
+        seconds = query_result if query_result[0] is not None else 9999
+        cursor.close()
+        cnx.close()
+        return query_result
+    except Exception as ex:
+        print(f'[x] error get_seconds_since_last_failed_attempt! {ex}')
+        return 9999
