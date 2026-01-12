@@ -1,4 +1,5 @@
 from mysql.connector import connect
+from datetime import datetime, timedelta
 
 db_password = 'Thisthepassword3'
 
@@ -36,6 +37,14 @@ WHERE InstanceID = %(id)s
 """
 
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
+
+sql_query_template['get_login_attempts'] = "SELECT AttemptCount, LastAttemptTime FROM LoginAttempts WHERE Identifier = %(id)s"
+sql_query_template['upsert_login_attempt'] = """
+INSERT INTO LoginAttempts (Identifier, AttemptCount, LastAttemptTime) 
+VALUES (%(id)s, 1, CURRENT_TIMESTAMP)
+ON DUPLICATE KEY UPDATE AttemptCount = AttemptCount + 1, LastAttemptTime = CURRENT_TIMESTAMP
+"""
+sql_query_template['reset_login_attempts'] = "DELETE FROM LoginAttempts WHERE Identifier = %(id)s"
 
 def db_connect():
     from pathlib import Path
@@ -147,3 +156,64 @@ def delete_instance(id):
         cnx.close()
     except Exception as ex:
         print(f'[x] error delete_instance! {ex}')
+
+def get_security_status(identifier):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        query = """
+            SELECT AttemptCount, 
+            TIMESTAMPDIFF(SECOND, LastAttemptTime, CURRENT_TIMESTAMP) as seconds_passed
+            FROM LoginAttempts WHERE Identifier = %(id)s
+        """
+        cursor.execute(query, {'id': identifier})
+        result = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+
+        if result:
+            count, seconds_passed = result
+            if count >= 3:
+                if seconds_passed < 300:
+                    return False, (300 - seconds_passed)
+                else:
+                    reset_login_attempts(identifier)
+        return True, 0
+    except Exception as ex:
+        print(f'[x] error checking security status: {ex}')
+        return True, 0
+
+def record_login_failure(identifier):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['upsert_login_attempt'], {'id': identifier})
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    except Exception as ex:
+        print(f'[x] error recording failure: {ex}')
+
+def reset_login_attempts(identifier):
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['reset_login_attempts'], {'id': identifier})
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    except Exception as ex:
+        print(f'[x] error resetting attempts: {ex}')
+
+def get_login_attempts_count(identifier):
+    """Returns the current number of failed attempts for an ID."""
+    try:
+        cnx = db_connect()
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute(sql_query_template['get_login_attempts'], {'id': identifier})
+        result = cursor.fetchone()
+        cursor.close()
+        cnx.close()
+        return result[0] if result else 0
+    except Exception:
+        return 0

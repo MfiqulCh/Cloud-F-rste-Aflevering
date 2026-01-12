@@ -2,6 +2,7 @@
 My first application
 """
 
+import datetime
 import toga
 import httpx
 
@@ -98,26 +99,56 @@ class CloudApp(toga.App):
 
     async def login_handler(self, widget):
         print(f"[i] Login Detected With Username: {self.username_input.value}")
+        email = self.username_input.value
+        password = self.password_input.value
 
-        connected = await check_login_from_dcr(
-            self.username_input.value, 
-            self.password_input.value
-        )
+        is_device_allowed, device_seconds = dbc.get_security_status('DEVICE_GLOBAL')
+        if not is_device_allowed:
+            minutes = int(device_seconds // 60)
+            seconds = int(device_seconds % 60)
+            print(f"[!] Login failed. Device frozen due to multiple unknown user attempts. Try again in {minutes}m {seconds}s.")
+            return
+
+        existing_role = dbc.get_dcr_role(email)
+
+        if existing_role:
+            is_user_allowed, user_seconds = dbc.get_security_status(email)
+            if not is_user_allowed:
+                minutes = int(user_seconds // 60)
+                seconds = int(user_seconds % 60)
+                print(f"[!] Login for account {email} is frozen. Try again in {minutes}m {seconds}s.")
+                return
+
+        connected = await check_login_from_dcr(email, password)
 
         if connected:
-            self.username = DcrUser(self.username_input.value, self.password_input.value)
-            self.username.role = dbc.get_dcr_role(email=self.username.email)
-            print(f'[i] Role: {self.username.role}')
+            print(f"[i] Login Successful for: {email}")
+            dbc.reset_login_attempts(email)
+            dbc.reset_login_attempts('DEVICE_GLOBAL')
+
+            self.username = DcrUser(email, password)
+            self.username.role = existing_role
             self.dcr_ar = DcrActiveRepository(self.username)
 
             self.option_container.content["All instances"].enabled = True
             self.option_container.content["Instance run"].enabled = True
             self.option_container.content["Logout"].enabled = True
-
             self.option_container.current_tab = "All instances"
             self.option_container.content["Login"].enabled = False
         else:
-            print("[x] Login failed try again!")
+            identifier = email if existing_role else 'DEVICE_GLOBAL'
+            dbc.record_login_failure(identifier)
+
+            status = dbc.get_login_attempts_count(identifier) 
+            attempts_left = 3 - status
+            
+            if attempts_left > 0:
+                print(f"[x] Login failed. Attempts remaining for {identifier}: {attempts_left}")
+            else:
+                if not existing_role:
+                    print(f"[!] SYSTEM ALERT: Too many unknown username attempts. DEVICE is now frozen.")
+                else:
+                    print(f"[!] Login for {email} is now frozen for 5 minutes.")
             
 
     async def show_instances_box(self):
@@ -222,7 +253,6 @@ class CloudApp(toga.App):
         new_id = await self.dcr_ar.create_new_instance(self.graph_id)
         self.current_instance_id = new_id
 
-        # Check if any events are pending
         events = await self.dcr_ar.get_events(self.graph_id, new_id, EventsFilter.ALL)
         valid = all(not event.pending for event in events)
         dbc.insert_instance(new_id, valid, self.username.email)
@@ -381,7 +411,6 @@ class CloudApp(toga.App):
             self.current_instance_id,
             widget.id,
         )
-        # After executing, check if any events are pending
         events = await self.dcr_ar.get_events(self.graph_id, self.current_instance_id, EventsFilter.ALL)
         valid = all(not event.pending for event in events)
         dbc.update_instance(self.current_instance_id, valid)
