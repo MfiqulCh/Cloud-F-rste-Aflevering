@@ -2,6 +2,7 @@
 My first application
 """
 
+import asyncio
 import datetime
 import toga
 import httpx
@@ -43,15 +44,21 @@ class CloudApp(toga.App):
            on_press = self.login_handler,
            style = Pack(padding=10)
        )
+       
+       #Error message
+       self.error_label = toga.Label("", style=Pack(padding=(5, 0), color="red", text_align="center"))
 
        login_box.add(username_row)
        login_box.add(password_row)
+       login_box.add(self.error_label)
        login_box.add(login_button)
+
 
        #All Instances Box
        self.all_instances_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
-
-
+       
+    
+       
        #Instance Box
        self.instance_box = toga.Box(style=Pack(direction=COLUMN, flex=1))
        self.instance_box.add(
@@ -91,6 +98,7 @@ class CloudApp(toga.App):
        self.option_container.content["Instance run"].enabled = False
 
        self.main_window.show()
+       
     
     async def option_item_changed(self, widget):
         print('[i] You Have Selected Another Option Item!')
@@ -102,11 +110,11 @@ class CloudApp(toga.App):
         email = self.username_input.value
         password = self.password_input.value
 
-        is_device_allowed, device_seconds = dbc.get_security_status('DEVICE_GLOBAL')
+        is_device_allowed, device_seconds = dbc.get_security_status('DEVICE')
         if not is_device_allowed:
             minutes = int(device_seconds // 60)
             seconds = int(device_seconds % 60)
-            print(f"[!] Login failed. Device frozen due to multiple unknown user attempts. Try again in {minutes}m {seconds}s.")
+            self.error_label.text = f"Login failed. Device frozen due to multiple unknown user attempts. Try again in {minutes}m {seconds}s."
             return
 
         existing_role = dbc.get_dcr_role(email)
@@ -116,7 +124,7 @@ class CloudApp(toga.App):
             if not is_user_allowed:
                 minutes = int(user_seconds // 60)
                 seconds = int(user_seconds % 60)
-                print(f"[!] Login for account {email} is frozen. Try again in {minutes}m {seconds}s.")
+                self.error_label.text = f"Login failed. User account frozen due to multiple failed attempts. Try again in {minutes}m {seconds}s."
                 return
 
         connected = await check_login_from_dcr(email, password)
@@ -124,7 +132,7 @@ class CloudApp(toga.App):
         if connected:
             print(f"[i] Login Successful for: {email}")
             dbc.reset_login_attempts(email)
-            dbc.reset_login_attempts('DEVICE_GLOBAL')
+            dbc.reset_login_attempts('DEVICE')
 
             self.username = DcrUser(email, password)
             self.username.role = existing_role
@@ -136,14 +144,14 @@ class CloudApp(toga.App):
             self.option_container.current_tab = "All instances"
             self.option_container.content["Login"].enabled = False
         else:
-            identifier = email if existing_role else 'DEVICE_GLOBAL'
-            dbc.record_login_failure(identifier)
+            identifier = email if existing_role else 'DEVICE'
+            await asyncio.to_thread(dbc.record_login_failure, identifier)
 
-            status = dbc.get_login_attempts_count(identifier) 
+            status = await asyncio.to_thread(dbc.get_login_attempts_count, identifier)
             attempts_left = 3 - status
             
             if attempts_left > 0:
-                print(f"[x] Login failed. Attempts remaining for {identifier}: {attempts_left}")
+                self.error_label.text = f"Login failed. Attempts remaining: {attempts_left}"
             else:
                 if not existing_role:
                     print(f"[!] SYSTEM ALERT: Too many unknown username attempts. DEVICE is now frozen.")
