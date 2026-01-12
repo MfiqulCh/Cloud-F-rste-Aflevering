@@ -158,7 +158,6 @@ class CloudApp(toga.App):
         seconds_since_last_failed = await asyncio.to_thread(dbc.get_seconds_since_last_failed_attempt, self.username_input.value)
         
         
-        
         if db_failed_count >= 3 and seconds_since_last_failed < punishment_time:
             wait_time = punishment_time - seconds_since_last_failed
             print(f"[x] {self.username_input.value} is temporarily locked out due to too many failed login attempts.")

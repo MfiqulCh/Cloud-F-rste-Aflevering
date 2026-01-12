@@ -8,43 +8,21 @@ sql_query_template = {}
 #TODO: fill in these templates with the right SQL query
 sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
 sql_query_template['update_dcr_role'] = "UPDATE DCRUsers SET Role = %(role)s WHERE Email = %(email)s"
-
-sql_query_template['get_all_instances'] = """
-SELECT Instances.InstanceID, Instances.IsInValidState, UserInstances.Email 
-FROM Instances 
-INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID
-"""
-
-sql_query_template['get_instances_for_user'] = """
-SELECT Instances.InstanceID, Instances.IsInValidState
-FROM Instances
-INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID
-WHERE UserInstances.Email = %(email)s
-"""
-
+sql_query_template['get_all_instances'] = """SELECT Instances.InstanceID, Instances.IsInValidState, UserInstances.Email 
+    FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID"""
+sql_query_template['get_instances_for_user'] = """SELECT Instances.InstanceID, Instances.IsInValidState
+    FROM Instances INNER JOIN UserInstances ON Instances.InstanceID = UserInstances.InstanceID WHERE UserInstances.Email = %(email)s"""
 sql_query_template['insert_instance'] = "INSERT INTO Instances (InstanceID, IsInValidState) VALUES (%(id)s, %(valid)s)"
-
-sql_query_template['insert_instance_for_user'] = """
-INSERT INTO UserInstances (Email, InstanceID)
-VALUES (%(email)s, %(instance_id)s)
-"""
-
+sql_query_template['insert_instance_for_user'] = """INSERT INTO UserInstances (Email, InstanceID) VALUES (%(email)s, %(instance_id)s)"""
 sql_query_template['update_instance'] = "UPDATE Instances SET IsInValidState = %(valid)s WHERE InstanceID = %(id)s"
-
-sql_query_template['delete_instance_from_user_instance'] = """
-DELETE FROM UserInstances
-WHERE InstanceID = %(id)s
-"""
-
+sql_query_template['delete_instance_from_user_instance'] = """DELETE FROM UserInstances WHERE InstanceID = %(id)s"""
 sql_query_template['delete_instance'] = "DELETE FROM Instances WHERE InstanceID = %(id)s"
-
 sql_query_template['get_login_attempts'] = "SELECT AttemptCount, LastAttemptTime FROM LoginAttempts WHERE Identifier = %(id)s"
-sql_query_template['upsert_login_attempt'] = """
-INSERT INTO LoginAttempts (Identifier, AttemptCount, LastAttemptTime) 
-VALUES (%(id)s, 1, CURRENT_TIMESTAMP)
-ON DUPLICATE KEY UPDATE AttemptCount = AttemptCount + 1, LastAttemptTime = CURRENT_TIMESTAMP
-"""
+sql_query_template['upsert_login_attempt'] = """INSERT INTO LoginAttempts (Identifier, AttemptCount, LastAttemptTime) 
+    VALUES (%(id)s, 1, CURRENT_TIMESTAMP) ON DUPLICATE KEY UPDATE AttemptCount = AttemptCount + 1, LastAttemptTime = CURRENT_TIMESTAMP"""
 sql_query_template['reset_login_attempts'] = "DELETE FROM LoginAttempts WHERE Identifier = %(id)s"
+sql_query_template['get_security_status'] = """SELECT AttemptCount, TIMESTAMPDIFF(SECOND, LastAttemptTime, CURRENT_TIMESTAMP) as seconds_passed
+    FROM LoginAttempts WHERE Identifier = %(id)s"""
 
 def db_connect():
     from pathlib import Path
@@ -161,12 +139,7 @@ def get_security_status(identifier):
     try:
         cnx = db_connect()
         cursor = cnx.cursor(buffered=True)
-        query = """
-            SELECT AttemptCount, 
-            TIMESTAMPDIFF(SECOND, LastAttemptTime, CURRENT_TIMESTAMP) as seconds_passed
-            FROM LoginAttempts WHERE Identifier = %(id)s
-        """
-        cursor.execute(query, {'id': identifier})
+        cursor.execute(sql_query_template['get_security_status'], {'id': identifier})
         result = cursor.fetchone()
         cursor.close()
         cnx.close()
