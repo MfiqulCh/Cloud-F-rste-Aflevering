@@ -190,3 +190,4 @@ def get_login_attempts_count(identifier):
         return result[0] if result else 0
     except Exception:
         return 0
+
