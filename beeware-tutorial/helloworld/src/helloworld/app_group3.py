@@ -110,29 +110,29 @@ class CloudApp(toga.App):
         email = self.username_input.value
         password = self.password_input.value
 
-        is_device_allowed, device_seconds = dbc.get_security_status('DEVICE')
+        is_device_allowed, device_seconds = await asyncio.to_thread(dbc.get_security_status, 'DEVICE')
         if not is_device_allowed:
             minutes = int(device_seconds // 60)
             seconds = int(device_seconds % 60)
-            self.error_label.text = f"Login failed. Device frozen due to multiple unknown user attempts. Try again in {minutes}m {seconds}s."
+            self.error_label.text = f"Login failed. \nDevice frozen due to multiple unknown user attempts. \nTry again in {minutes}m {seconds}s."
             return
 
-        existing_role = dbc.get_dcr_role(email)
+        existing_role = await asyncio.to_thread(dbc.get_dcr_role, email)
 
         if existing_role:
-            is_user_allowed, user_seconds = dbc.get_security_status(email)
+            is_user_allowed, user_seconds = await asyncio.to_thread(dbc.get_security_status, email)
             if not is_user_allowed:
                 minutes = int(user_seconds // 60)
                 seconds = int(user_seconds % 60)
-                self.error_label.text = f"Login failed. User account frozen due to multiple failed attempts. Try again in {minutes}m {seconds}s."
+                self.error_label.text = f"Login failed. \nUser account frozen due to multiple failed attempts. \nTry again in {minutes}m {seconds}s."
                 return
 
         connected = await check_login_from_dcr(email, password)
 
         if connected:
             print(f"[i] Login Successful for: {email}")
-            dbc.reset_login_attempts(email)
-            dbc.reset_login_attempts('DEVICE')
+            await asyncio.to_thread(dbc.reset_login_attempts, email)
+            await asyncio.to_thread(dbc.reset_login_attempts, 'DEVICE')
 
             self.username = DcrUser(email, password)
             self.username.role = existing_role
@@ -154,9 +154,9 @@ class CloudApp(toga.App):
                 self.error_label.text = f"Login failed. Attempts remaining: {attempts_left}"
             else:
                 if not existing_role:
-                    print(f"[!] SYSTEM ALERT: Too many unknown username attempts. DEVICE is now frozen.")
+                    self.error_label.text = "SYSTEM ALERT: Too many unknown username attempts. DEVICE is now frozen."
                 else:
-                    print(f"[!] Login for {email} is now frozen for 5 minutes.")
+                    self.error_label.text = f"Account {email} frozen for 5 minutes."
             
 
     async def show_instances_box(self):

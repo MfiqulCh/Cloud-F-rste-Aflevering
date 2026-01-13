@@ -1,9 +1,15 @@
+import os
+
 from mysql.connector import connect
 from datetime import datetime, timedelta
+from pathlib import Path
 
 db_password = 'Thisthepassword3'
 
 sql_query_template = {}
+
+current_dir = Path(__file__).parent.resolve()
+cert_filepath = str(current_dir / "DigiCertGlobalRootG2.crt.pem")
 
 #TODO: fill in these templates with the right SQL query
 sql_query_template['get_dcr_role'] = "SELECT Role FROM DCRUsers WHERE Email = %(email)s"
@@ -25,9 +31,6 @@ sql_query_template['get_security_status'] = """SELECT AttemptCount, TIMESTAMPDIF
     FROM LoginAttempts WHERE Identifier = %(id)s"""
 
 def db_connect():
-    from pathlib import Path
-    resources_folder = Path(__file__).parent.resolve()
-    cert_filepath = str(resources_folder.joinpath("DigiCertGlobalRootCA.crt.pem"))
     cnx = connect(
         user="Group3",
         password=db_password,
